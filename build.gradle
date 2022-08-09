@@ -8,6 +8,9 @@ group = 'kbsc'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+//Maria DB 드라이버 등록
+compile("prg.mariadb.jdbc:mariadb-java-client")
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
