@@ -6,8 +6,8 @@ branches:
   only:
     - main
 # 모든 사용자에게 접근 권한 풀어주기 -> gradlew permission error
-before_install:
-  - -chmod +x gradlew
+#before_install:
+ # - -chmod +x gradlew 오류나서 주석처리 -> git bash로 설정
 
 # Travis CI 서버의 Home
 cache:
