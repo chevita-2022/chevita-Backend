@@ -5,7 +5,9 @@ jdk:
 branches:
   only:
     - main
-    -
+# 모든 사용자에게 접근 권한 풀어주기 -> gradlew permission error
+before_install:
+  - -chomod +x gradlew
 
 # Travis CI 서버의 Home
 cache:
