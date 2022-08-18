@@ -9,13 +9,13 @@ branches:
 #before_install:
  # - -chmod +x gradlew 오류나서 주석처리 -> git bash로 설정
 
-# Travis CI 서버의 Home
+# Travis CI 서버의 Cache 활성화
 cache:
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
-script: "./gradle clean build"
+script: "./gradlew clean build"
 
 # CI 실행 완료시 메일로 알람
 notifications:
