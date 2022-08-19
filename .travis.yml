@@ -35,7 +35,9 @@ deploy:
     acl: private #zip 파일 접근 private으로
     local_dir: deploy #before_deploy에서 생성한 디렉토리
     wait-until-deployed: true
-    all_branches: true #master 브랜치 외 다른 브랜치에도 권한 부여
+    on:
+      branch: main #main에만 권한 부여
+#    all_branches: true #master 브랜치 외 다른 브랜치에도 권한 부여
 
 
 
