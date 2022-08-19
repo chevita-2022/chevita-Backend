@@ -6,6 +6,10 @@ branches:
   only:
     - main
 
+#현재 위치로부터 프로젝트 빌드를 진행할 곳으로 이동
+before_script:
+  - cd chevita-Backend/
+
 # Travis CI 서버의 Cache 활성화
 cache:
   directories:
@@ -16,7 +20,7 @@ script: "./gradlew clean build"
 
 #travis CI에서 빌드한 jar 파일을 s3에 올리는 코드
 before_deploy:
-  - zip -r chevita-Backend * #프로젝트 이름이라는데 정확히 어떤걸 얘기하는지 모르겠음 일단 github에 올려둔 이름으로 함
+  - zip -r chevita-2022/chevita-Backend * #프로젝트 이름이라는데 정확히 어떤걸 얘기하는지 모르겠음 일단 github에 올려둔 이름으로 함
   - mkdir -p deploy
   - mv chevita-Backend.zip deploy/chevita-Backend.zip
 
