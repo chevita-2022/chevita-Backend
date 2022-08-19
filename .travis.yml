@@ -7,8 +7,8 @@ branches:
     - main
 
 #현재 위치로부터 프로젝트 빌드를 진행할 곳으로 이동
-before_script:
-  - cd chevita-Backend/
+#before_script:
+#  - cd chevita-Backend/
 
 # Travis CI 서버의 Cache 활성화
 cache:
@@ -35,6 +35,7 @@ deploy:
     acl: private #zip 파일 접근 private으로
     local_dir: deploy #before_deploy에서 생성한 디렉토리
     wait-until-deployed: true
+    all_branches: true #master 브랜치 외 다른 브랜치에도 권한 부여
 
 
 
