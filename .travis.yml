@@ -35,8 +35,23 @@ deploy:
     acl: private #zip 파일 접근 private으로
     local_dir: deploy #before_deploy에서 생성한 디렉토리
     wait-until-deployed: true
+
     on:
       branch: main #main에만 권한 부여
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY #Travis repo settingd에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY
+
+    bucket: chevita-bucket #S3 버킷
+    key: chevita-backend.zip #빌드 파일 압축해서 전달
+    bundle_type: zip
+    application: CodeDeployGitHubChevita-App #웹 콘솔에서 등록한 codedeploy 애플리케이션
+
+    deployment_group: CodeDeployGitHubChevita-DepGrp # 웹 콘솔에서 등록한 codedeploy 배포 그룹
+
+    region: ap-northeast-2
+    wait-until-deployed: true
 #    all_branches: true #master 브랜치 외 다른 브랜치에도 권한 부여
 
 
@@ -47,5 +62,4 @@ notifications:
     recipients:
       - susu19@ewhain.net
       - doooheun@gmail.com
-
 
