@@ -13,21 +13,20 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig {
+public class SwaggerConfiguration {
     @Bean
-    public Docket api(){
+    public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any()) //swagger api 문서로 만들기 원하는 basePackage 경로
-                .paths(PathSelectors.any()) //apis() 중 path에 맞는 api 필터링
+                .apis(RequestHandlerSelectors.any())//Swagger API 문서로 만들기 원하는 basePackage 경로 -> 모든 경로를 문서화하고 싶으므로 any()로 지정
+                .paths(PathSelectors.ant("/*/**"))    //URL 경로를 지정하여 해당 URL에 해당하는 요청만 SWAGGER로 만듦 -> 모든 경로를 api로 작성 가능 (*)
                 .build();
     }
 
-    // Swagger로 설정하는 API 정보
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Chevita API")
-                .description("Chevita API for Developers")
-                .termsOfServiceUrl("https://github.com/chevita-2022")
-                .build();
+    //api 정보
+    private ApiInfo swaggerInfo() {
+        return new ApiInfoBuilder().title("Spring API Documentation")
+                .description("Chevita 앱 개발시 사용되는 서버 API에 대한 연동 문서입니다")
+                .license("chevita").licenseUrl("http://chevita.org").version("1").build();
     }
 }
