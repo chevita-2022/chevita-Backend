@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### yaml ###
-appspec.yml
+src/main/resources/application.yml
