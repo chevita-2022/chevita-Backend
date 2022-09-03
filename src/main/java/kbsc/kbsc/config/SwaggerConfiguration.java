@@ -24,8 +24,8 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())//Swagger API 문서로 만들기 원하는 basePackage 경로 -> 모든 경로를 문서화하고 싶으므로 any()로 지정
-                .paths(PathSelectors.ant("/*/**"))    //URL 경로를 지정하여 해당 URL에 해당하는 요청만 SWAGGER로 만듦 -> 모든 경로를 api로 작성 가능 (*)
-                //paths.(PathSelectors.ant("/api/**")) // 그중 /api/** 인 URL들만 필터링
+//                .paths(PathSelectors.ant("/*/**"))    //URL 경로를 지정하여 해당 URL에 해당하는 요청만 SWAGGER로 만듦 -> 모든 경로를 api로 작성 가능 (*)
+                .paths(PathSelectors.ant("/api/v2/**")) // 그중 /api/** 인 URL들만 필터링
                 .build();
     }
 
@@ -51,10 +51,6 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
         registry.addResourceHandler("/images/**").addResourceLocations("classpath:/static/images/");
     }
 
-    @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {
-        WebMvcConfigurer.super.configurePathMatch(configurer);
-    }
 
 
 }
