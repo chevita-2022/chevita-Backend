@@ -9,7 +9,8 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 //Maria DB 드라이버 등록
-compile("prg.mariadb.jdbc:mariadb-java-client")
+//compile("prg.mariadb.jdbc:mariadb-java-client") -> deprecated
+//implementation("prg.mariadb.jdbc:mariadb-java-client")
 
 configurations {
 	compileOnly {
@@ -26,8 +27,18 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//Swagger 설정
+	implementation("io.springfox:springfox-boot-starter:3.0.0")
+//	implementation 'io.springfox:springfox-swagger2:3.0.0'
+//	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
+	//s3 설정
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+
