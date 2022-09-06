@@ -4,15 +4,15 @@ package kbsc.kbsc.domain.post.api;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import kbsc.kbsc.domain.post.application.PostService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import kbsc.kbsc.domain.post.dto.PostDto;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/api/posts")
+@RequestMapping("/posts")
 @RestController
 @Api(tags="Post API")
 public class PostController {
-    private final PostService postService; //싱글턴
+
+    private final PostService postService;
 
     public PostController(PostService postService) {
         this.postService = postService;
@@ -23,7 +23,13 @@ public class PostController {
     public String posts(){
         return "get posts";
     }
-    
+
+    @GetMapping("/dto")
+    public PostDto PostDto(@RequestParam("name") String name,
+                            @RequestParam("amount") int amount) {
+        return new PostDto(name, amount);
+    }
+    /*
     @PostMapping
     public String addPosts(){
         return "post posts";
@@ -37,7 +43,7 @@ public class PostController {
     @PatchMapping("/{postId}")
     public String updatePost(@PathVariable String postId){
         return "update postId = "+ postId;
-    }
+    }*/
 
 
 }
