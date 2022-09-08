@@ -2,8 +2,10 @@ package kbsc.kbsc.dto;
 
 import kbsc.kbsc.domain.post.dto.PostDto;
 import org.junit.Test;
-import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.test.context.web.WebAppConfiguration;
 
+import static org.assertj.core.api.Assertions.assertThat;
+@WebAppConfiguration
 public class PostDtoTest {
     @Test
     public void 롬복_기능_테스트(){

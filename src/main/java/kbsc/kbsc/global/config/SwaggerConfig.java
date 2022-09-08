@@ -18,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 @EnableWebMvc //spring-security와 연결할 때 해당 부분이 없으면 404 에러 발생
-public class SwaggerConfiguration implements WebMvcConfigurer {
+public class SwaggerConfig implements WebMvcConfigurer {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
