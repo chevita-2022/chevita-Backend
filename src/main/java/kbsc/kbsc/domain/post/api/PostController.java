@@ -26,7 +26,7 @@ public class PostController {
 
     @GetMapping("/dto")
     public PostDto PostDto(@RequestParam("name") String name,
-                            @RequestParam("amount") int amount) {
+                           @RequestParam("amount") int amount) {
         return new PostDto(name, amount);
     }
     /*
