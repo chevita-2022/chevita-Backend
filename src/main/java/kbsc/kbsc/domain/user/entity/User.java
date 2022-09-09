@@ -1,6 +1,6 @@
 package kbsc.kbsc.domain.user.entity;
 
-import kbsc.kbsc.domain.post.entity.Post;
+import kbsc.kbsc.domain.post.domain.Post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

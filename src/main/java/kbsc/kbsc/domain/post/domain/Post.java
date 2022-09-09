@@ -1,24 +1,25 @@
-package kbsc.kbsc.domain.post.entity;
+package kbsc.kbsc.domain.post.domain;
 
 import kbsc.kbsc.domain.user.entity.User;
 import lombok.Builder;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
-@Getter
+/*
+* ***Entity 클래스를 절대 request/response 클래스로 사용하면 안된다. ***
+* */
+
+@Getter //클래스내 모든 필드의 getter 메소드 자동생성
 @NoArgsConstructor //기본 생성자 자동 추가, public Post()와 같은 효과
-@Entity
-public class Post {
-    @Id
+@Entity //**entity 클래스에는 절대 setter 메소드 만들지 않음
+public class Post { //실제 db와 매칭될 클래스, 보통 entity 클래스라고 함
+    @Id //해당 테이블의 pk 값
     @Column(name = "post_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long postIdx;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //pk 생성 규칙
+    private Long postId;
 
     //1:N일 때 외래키는 항상 N쪽에 존재
     @ManyToOne
@@ -69,12 +70,11 @@ public class Post {
     @Column(nullable = false)
     private int seenNumber=0;
 
-    @Builder
-    public Post(String title,String contents){
+    @Builder //해당 클래스의 빌더 패턴 클래스 생성, 생성자 상단에 선언시 생성자에 포함된 필드만 빌더에 포함 //생성자 대신 사용
+    public Post(String title, String contents){
         //인자가 너무 많아져서 일단 두개만 설정
         this.title = title;
         this.contents = contents;
-
     }
 
     
