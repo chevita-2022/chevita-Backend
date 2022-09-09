@@ -1,6 +1,6 @@
 package kbsc.kbsc.domain.post.dto;
 import io.swagger.annotations.Api;
-import kbsc.kbsc.domain.post.entity.Post;
+import kbsc.kbsc.domain.post.domain.Post;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
