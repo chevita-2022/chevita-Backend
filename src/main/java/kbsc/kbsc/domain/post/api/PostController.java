@@ -6,7 +6,9 @@ import io.swagger.annotations.ApiOperation;
 import kbsc.kbsc.domain.post.application.PostService;
 import kbsc.kbsc.domain.post.constant.PostConstants;
 import kbsc.kbsc.domain.post.dto.PostSaveRequestDto;
+import kbsc.kbsc.domain.post.dto.PostUpdateRequestDto;
 import kbsc.kbsc.global.dto.ResponseDto;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,46 @@ public class PostController {
     @PostMapping
     public Long save(@RequestBody PostSaveRequestDto requestDto){
         return postService.save(requestDto);
+    }
+
+    @ApiOperation(value = "게시글 수정", notes = "게시글 수정")
+    @PatchMapping("/{postId}")
+    public Long update(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
+        return postService.update(id, requestDto);
+    }
+
+    @ApiOperation(value = "특정 유저의 게시글 조회", notes = "특정 유저의 게시글 조회")
+    @GetMapping("/{userId}")
+    public Long findPostByUserId(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
+        return postService.update(id, requestDto);
+    }
+
+    @ApiOperation(value = "나눔 상태 변경", notes = "나눔 상태 변경")
+    @PatchMapping("/{postId}/reservation")
+    public Long updateNanumStatus(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
+        return postService.update(id, requestDto);
+    }
+    @ApiOperation(value = "나눔 예약 요청", notes = "나눔 예약 요청")
+    @PostMapping("/{postId}/reservation")
+    public Long requestNanumReservation(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
+        return postService.update(id, requestDto);
+    }
+
+    @ApiOperation(value = "나눔 예약 정보 조회", notes = "나눔 예약 정보 조회")
+    @GetMapping("/{postId}/reservation")
+    public Long getNanumReservationInfo(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
+        return postService.update(id, requestDto);
+    }
+
+    @ApiOperation(value = "나눔 후기 등록", notes = "나눔 후기 등록")
+    @GetMapping("/{postId}/review/nanum")
+    public Long addNanumReview(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
+        return postService.update(id, requestDto);
+    }
+    @ApiOperation(value = "채눔 후기 등록", notes = "채눔 후기 등록")
+    @GetMapping("/{postId}/review/chanum")
+    public Long addChanumReview(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
+        return postService.update(id, requestDto);
     }
 
     /*@ApiOperation(value="특정 게시글 조회", notes = "특정 게시글을 조회합니다.")
