@@ -1,3 +1,4 @@
+/*
 package kbsc.kbsc.web;
 import kbsc.kbsc.domain.post.domain.Post;
 import org.junit.After;
@@ -48,3 +49,4 @@ public class PostRepositoryTest {
     }
 
 }
+*/
