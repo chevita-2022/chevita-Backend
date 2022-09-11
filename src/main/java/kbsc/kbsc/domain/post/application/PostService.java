@@ -1,17 +1,20 @@
 package kbsc.kbsc.domain.post.application;
 
-import kbsc.kbsc.domain.post.dao.PostRepository;
+import kbsc.kbsc.domain.post.dao.PostRespository;
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.dto.PostDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class PostService {
-    private final PostRepository postRepository;
+    private final PostRespository postRepository;
 
     //게시글 업로드
     @Transactional
@@ -21,7 +24,27 @@ public class PostService {
         newPost.setTitle(userPostDto.getTitle());
         newPost.setContents(userPostDto.getContent());
         return postRepository.save(newPost);
-
     }
 
+    //게시글 조회
+    public Post getSinglePost(Long postId){
+        return postRepository.findByPostId(postId);
+    }
+
+    //게시글 목록 조회
+    public List<Post> getAllPost(){
+        try{
+            return postRepository.findAll();
+        } catch (NoResultException e){
+            return new ArrayList<>();
+        }
+    }
+
+    //유저 아이디로 게시글 조회
+    @Transactional
+    public List<Post> searchPostsByUserId(Long userId) {
+        List<Post> postList = postRepository.findByUserId(userId);
+        if(postList.isEmpty()) return new ArrayList<>();
+        return postList;
+    }
 }
