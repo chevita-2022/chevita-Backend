@@ -1,5 +1,4 @@
 package kbsc.kbsc.web;
-import kbsc.kbsc.domain.post.dao.PostRepository;
 import kbsc.kbsc.domain.post.domain.Post;
 import org.junit.After;
 import org.junit.Test;

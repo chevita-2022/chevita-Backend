@@ -15,12 +15,13 @@ import javax.persistence.*;
 @NoArgsConstructor //기본 생성자 자동 추가, public Post()와 같은 효과
 @Entity
 @Setter //사용하면 안되는데...
-@Table(name="post")
+//@Table(name="Post")
 public class Post {
     @Id //해당 테이블의 pk 값
-    @Column(name = "post_id")
+    @Column(name = "postIdx")
     @GeneratedValue(strategy = GenerationType.IDENTITY) //pk 생성 규칙
     private Long postId;
+    @Column(name = "userIdx")
     private Long userId;
 
   /* //1:N일 때 외래키는 항상 N쪽에 존재

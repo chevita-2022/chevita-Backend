@@ -9,8 +9,11 @@ import kbsc.kbsc.domain.post.dto.PostDto;
 import kbsc.kbsc.global.util.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/posts")
 @RestController
@@ -25,22 +28,40 @@ public class PostController {
 
     @ApiOperation(value = "게시글 작성", notes = "게시글 작성")
     @PostMapping
-    public ResponseEntity<? extends BasicResponse> addController(@RequestBody PostDto postDto) {
+    public ResponseEntity<? extends BasicResponse> addPost(@RequestBody PostDto postDto) {
         Post resultPost = postService.createPostByUser(postDto);
         return ResponseEntity.ok().body(new CommonResponse(resultPost));
     }
 
+    @ApiOperation(value = "postId로 특정 게시글 조회", notes = "postId로 특정 게시글 조회")
+    @GetMapping("/{postId}")
+    public ResponseEntity<? extends BasicResponse> getPostByPostId(@PathVariable("post-id") Long postId){
+        Post resultPost = postService.getSinglePost(postId);
+        return ResponseEntity.ok().body(new CommonResponse(resultPost));
+    }
 
-//    @ApiOperation(value = "게시글 수정", notes = "게시글 수정")
-//    @PatchMapping("/{postId}")
-//    public
+    @ApiOperation(value = "전체 게시글 조회", notes = "전체 게시글 조회")
+    @GetMapping()
+    public ResponseEntity<? extends BasicResponse> getAllPostList(){
+        List<Post> postList = postService.getAllPost();
+        if(postList.size() == 0)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("게시글이 존재하지 않습니다."));
+        CommonResponse commonResponse = new CommonResponse(postList);
+        return ResponseEntity.ok().body(commonResponse);
+    }
+
+/*    @ApiOperation(value = "특정 유저의 게시글 조회", notes = "특정 유저의 게시글 조회")
+    @GetMapping("/{userId}")
+    public ResponseEntity<? extends BasicResponse> searchByUserId(@PathVariable ("user-id") Long userId){
+        List<Post> postList = postService.searchPostsByUserId(userId);
+        if (postList.size()==0)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("존재하는 게시글이 없습니다"));
+        return ResponseEntity.ok().body(new CommonResponse(postList));
+
+    }*/
+
 }
     /*
-    @ApiOperation(value = "특정 유저의 게시글 조회", notes = "특정 유저의 게시글 조회")
-    @GetMapping("/{userId}")
-    public Long findPostByUserId(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
-        return postService.update(id, requestDto);
-    }
 
     @ApiOperation(value = "나눔 상태 변경", notes = "나눔 상태 변경")
     @PatchMapping("/{postId}/reservation")

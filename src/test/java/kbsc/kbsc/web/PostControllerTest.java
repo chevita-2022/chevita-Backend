@@ -1,6 +1,6 @@
 package kbsc.kbsc.web;
 import static org.assertj.core.api.Assertions.assertThat;
-import kbsc.kbsc.domain.post.dao.PostRepository;
+
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.dto.PostSaveRequestDto;
 import org.junit.After;
