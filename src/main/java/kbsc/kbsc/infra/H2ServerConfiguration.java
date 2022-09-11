@@ -1,4 +1,4 @@
-package kbsc.kbsc.infra;
+/*package kbsc.kbsc.infra;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.h2.tools.Server;
@@ -15,4 +15,4 @@ public class H2ServerConfiguration {
         Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9092").start();
         return new HikariDataSource();
     }
-}
+}*/
