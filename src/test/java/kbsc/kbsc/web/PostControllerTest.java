@@ -1,4 +1,3 @@
-/*
 package kbsc.kbsc.web;
 import static org.assertj.core.api.Assertions.assertThat;
 import kbsc.kbsc.domain.post.dao.PostRepository;
@@ -40,12 +39,10 @@ public class PostControllerTest {
         String title = "title";
         String category = "category";
 
-        */
-/*PostSaveRequestDto requestDto = PostSaveRequestDto.builder()
+        PostSaveRequestDto requestDto = PostSaveRequestDto.builder()
                 .title(title)
                 .category(category)
-                .build();*//*
-
+                .build();
 
         String url = "http://localhost:" +port+"/posts";
 
@@ -65,4 +62,3 @@ public class PostControllerTest {
     }
 
 }
-*/

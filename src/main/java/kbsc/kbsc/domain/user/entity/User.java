@@ -1,4 +1,3 @@
-/*
 package kbsc.kbsc.domain.user.entity;
 
 import kbsc.kbsc.domain.post.domain.Post;
@@ -23,11 +22,8 @@ public class User {
     @Column(name = "user_id")
     private Long userId;
 
-    */
-/*@OneToMany
+    /*@OneToMany
     @JoinColumn(name="user_id")
-    private List<Post> posts = new ArrayList<>();*//*
+    private List<Post> posts = new ArrayList<>();*/
 
-    //TODO: Enttiy와 User 객체 구조 정리하기 (수현이한테 물어보기)
 }
-*/
