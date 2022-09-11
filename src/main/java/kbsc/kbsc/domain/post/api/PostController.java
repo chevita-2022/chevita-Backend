@@ -4,34 +4,38 @@ package kbsc.kbsc.domain.post.api;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import kbsc.kbsc.domain.post.application.PostService;
-import kbsc.kbsc.domain.post.constant.PostConstants;
-import kbsc.kbsc.domain.post.dto.PostSaveRequestDto;
-import kbsc.kbsc.domain.post.dto.PostUpdateRequestDto;
-import kbsc.kbsc.global.dto.ResponseDto;
+import kbsc.kbsc.domain.post.domain.Post;
+import kbsc.kbsc.domain.post.dto.PostDto;
+import kbsc.kbsc.global.util.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequiredArgsConstructor //생성자 주입 https://velog.io/@developerjun0615/Spring-RequiredArgsConstructor-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%9C-%EC%83%9D%EC%84%B1%EC%9E%90-%EC%A3%BC%EC%9E%85
 @RequestMapping("/posts")
 @RestController
 public class PostController {
 
     private final PostService postService;
 
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
+
+
     @ApiOperation(value = "게시글 작성", notes = "게시글 작성")
     @PostMapping
-    public Long save(@RequestBody PostSaveRequestDto requestDto){
-        return postService.save(requestDto);
+    public ResponseEntity<? extends BasicResponse> addController(@RequestBody PostDto postDto) {
+        Post resultPost = postService.createPostByUser(postDto);
+        return ResponseEntity.ok().body(new CommonResponse(resultPost));
     }
 
-    @ApiOperation(value = "게시글 수정", notes = "게시글 수정")
-    @PatchMapping("/{postId}")
-    public Long update(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
-        return postService.update(id, requestDto);
-    }
 
+//    @ApiOperation(value = "게시글 수정", notes = "게시글 수정")
+//    @PatchMapping("/{postId}")
+//    public
+}
+    /*
     @ApiOperation(value = "특정 유저의 게시글 조회", notes = "특정 유저의 게시글 조회")
     @GetMapping("/{userId}")
     public Long findPostByUserId(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
@@ -83,5 +87,3 @@ public class PostController {
 //    }
 
 
-
-}
