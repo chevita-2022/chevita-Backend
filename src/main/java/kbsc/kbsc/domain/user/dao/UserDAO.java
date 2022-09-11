@@ -1,10 +1,10 @@
 package kbsc.kbsc.domain.user.dao;
 
-import kbsc.kbsc.domain.user.domain.User;
+import kbsc.kbsc.domain.user.domain.Users;
 
 public interface UserDAO {
 
-    User saveUser(User userEntity);
-    User findUserByIdx(int userIdx);
+    Users saveUser(Users userEntity);
+    Users findUserByIdx(Integer userIdx);
 
 }

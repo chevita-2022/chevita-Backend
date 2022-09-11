@@ -1,7 +1,7 @@
 package kbsc.kbsc.domain.user.api;
 
 import kbsc.kbsc.domain.user.dao.impl.UserDAOImpl;
-import kbsc.kbsc.domain.user.domain.User;
+import kbsc.kbsc.domain.user.domain.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,15 +9,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class UserController {
 
-    UserDAOImpl userDAO;
-
     @Autowired
-    public UserController(UserDAOImpl userDAO) {
-        this.userDAO = userDAO;
-    }
-
-
-
+    UserDAOImpl userDAO;
     /*
      @GetMapping("/room/{roomIdx}")
     public List<ChatMessage> findRoomMessages(@PathVariable String roomIdx) {
@@ -26,7 +19,7 @@ public class UserController {
     */
 
     @GetMapping("/users/{userid}")
-    public User findUserByIdx(@PathVariable int userid) {
+    public Users findUserByIdx(@PathVariable int userid) {
         return userDAO.findUserByIdx(userid);
     }
 }
