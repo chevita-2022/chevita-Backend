@@ -2,14 +2,14 @@ package kbsc.kbsc.domain.user.dao.impl;
 
 import kbsc.kbsc.domain.user.Repository.UserRepository;
 import kbsc.kbsc.domain.user.dao.UserDAO;
-import kbsc.kbsc.domain.user.domain.User;
+import kbsc.kbsc.domain.user.domain.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserDAOImpl implements UserDAO {
 
-    UserRepository userRepository;
+    final UserRepository userRepository;
 
     //의존성 주입, 싱글톤 빈으로 미리 올려둠
     @Autowired
@@ -18,16 +18,16 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User saveUser(User userEntity) {
+    public Users saveUser(Users userEntity) {
         userRepository.save(userEntity);
         return userEntity;
     }
 
 
     @Override
-    public User findUserByIdx(int userIdx) {
+    public Users findUserByIdx(Integer userIdx) {
 
-        User userEntity= userRepository.findById(userIdx).orElseThrow(IllegalArgumentException::new);
+        Users userEntity= userRepository.findById(userIdx).orElseThrow(IllegalArgumentException::new);
         return userEntity;
 
     }

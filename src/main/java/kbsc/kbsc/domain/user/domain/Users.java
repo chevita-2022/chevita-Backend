@@ -18,12 +18,12 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "User")
-public class User {
+@Table(name = "Users")
+public class Users {
 
     //pk
     @Id
-    int userIdx;
+    Integer userIdx;
 
     String userNickName;
     String userAddress;
