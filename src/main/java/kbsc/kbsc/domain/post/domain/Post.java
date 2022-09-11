@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor //기본 생성자 자동 추가, public Post()와 같은 효과
 @Entity
 @Setter //사용하면 안되는데...
-@Table(name="Post")
+//@Table(name="Post")
 public class Post {
     @Id //해당 테이블의 pk 값
     @Column(name = "postIdx")

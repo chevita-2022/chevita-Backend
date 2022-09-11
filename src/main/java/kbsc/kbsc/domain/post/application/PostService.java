@@ -40,11 +40,11 @@ public class PostService {
         }
     }
 
-    //유저 아이디로 게시글 조회
+   /* //유저 아이디로 게시글 조회
     @Transactional
     public List<Post> searchPostsByUserId(Long userId) {
         List<Post> postList = postRepository.findByUserId(userId);
         if(postList.isEmpty()) return new ArrayList<>();
         return postList;
-    }
+    }*/
 }
