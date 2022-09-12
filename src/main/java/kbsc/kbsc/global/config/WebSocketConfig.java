@@ -1,3 +1,4 @@
+/*
 package kbsc.kbsc.global.config;
 import kbsc.kbsc.domain.chat.application.MyWebSocketHandler;
 import lombok.RequiredArgsConstructor;
@@ -14,4 +15,4 @@ public class WebSocketConfig implements WebSocketConfigurer {
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(webSocketHandler, "ws/chat").setAllowedOrigins("*");
     }
-}
+}*/
