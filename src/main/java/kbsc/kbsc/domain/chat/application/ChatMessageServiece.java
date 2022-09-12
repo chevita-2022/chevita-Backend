@@ -1,3 +1,4 @@
+/*
 package kbsc.kbsc.domain.chat.application;
 
 import kbsc.kbsc.domain.chat.Repository.ChatMessageRepository;
@@ -45,3 +46,4 @@ public class ChatMessageServiece {
 }
 
 
+*/
