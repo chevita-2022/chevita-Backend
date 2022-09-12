@@ -2,9 +2,7 @@ package kbsc.kbsc.domain.user.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 //데이터베이스 테이블과 1:1 맵핑되도록 구성
@@ -23,7 +21,8 @@ public class Users {
 
     //pk
     @Id
-    Integer userIdx;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
+    Long userIdx;
 
     String userNickName;
     String userAddress;

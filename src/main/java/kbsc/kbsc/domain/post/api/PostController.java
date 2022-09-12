@@ -34,9 +34,9 @@ public class PostController {
     }
 
     @ApiOperation(value = "postId로 특정 게시글 조회", notes = "postId로 특정 게시글 조회")
-    @GetMapping("/{postId}")
-    public ResponseEntity<? extends BasicResponse> getPostByPostId(@PathVariable("post-id") Long postId){
-        Post resultPost = postService.getSinglePost(postId);
+    @GetMapping("/{postid}")
+    public ResponseEntity<? extends BasicResponse> getPostByPostId(@PathVariable Long postid){
+        Post resultPost = postService.getSinglePost(postid);
         return ResponseEntity.ok().body(new CommonResponse(resultPost));
     }
 

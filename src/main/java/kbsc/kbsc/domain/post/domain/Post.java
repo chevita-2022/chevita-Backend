@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Setter //사용하면 안되는데..
 public class Post {
     @Id //해당 테이블의 pk 값
-    @Column(name = "postIdx")
+    @Column(name = "postIdx") //꼭 필요할까...? 객체명과 DB 컬럼명을 다르게 하고 싶은 경우, DB 컬럼명으로 설정할 이름을 name 속성으로 적는다.
     @GeneratedValue(strategy = GenerationType.IDENTITY) //pk 생성 규칙
     private Long postId;
     @Column(name = "userIdx")
