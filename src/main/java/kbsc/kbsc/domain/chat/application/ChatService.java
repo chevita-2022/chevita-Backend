@@ -2,6 +2,7 @@ package kbsc.kbsc.domain.chat.application;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import kbsc.kbsc.domain.chat.Repository.ChatRoomRepository;
 import kbsc.kbsc.domain.chat.domain.ChatMessage;
 import kbsc.kbsc.domain.chat.domain.ChatRoom;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,11 @@ public class ChatService {
     private final ObjectMapper objectMapper;
     private Map<String, ChatRoom> chatRooms;
 
+    private final ChatRoomRepository chatRoomRepository;
+
+    public ChatRoom findRoomById(Integer userIdx) {
+
+    }
 
     @PostConstruct
     private void init() {
