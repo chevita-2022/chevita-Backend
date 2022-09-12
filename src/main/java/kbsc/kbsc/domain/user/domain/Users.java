@@ -3,7 +3,6 @@ package kbsc.kbsc.domain.user.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 //데이터베이스 테이블과 1:1 맵핑되도록 구성
 
@@ -27,8 +26,6 @@ public class Users {
     String userNickName;
     String userAddress;
     String profileImgUrl;
-    Timestamp createdAt;
-    Timestamp updatedAt;
     String introduction;
     float vital;
     //TODO: db에서 userHashTag가 아니라 userhashTag라서 이렇게 일단 만듦

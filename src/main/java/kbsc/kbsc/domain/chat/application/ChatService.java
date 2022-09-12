@@ -1,3 +1,4 @@
+/*
 package kbsc.kbsc.domain.chat.application;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -61,3 +62,4 @@ public class ChatService {
         }
     }
 }
+*/

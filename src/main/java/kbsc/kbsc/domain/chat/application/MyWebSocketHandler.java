@@ -1,3 +1,4 @@
+/*
 package kbsc.kbsc.domain.chat.application;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kbsc.kbsc.domain.chat.domain.ChatMessage;
@@ -40,12 +41,14 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
             log.info("saved msg={}", msg);
         }
         chatRoom.setLastMessage(chatMessage.getMessageId());
-       /* log.info("message={}", chatMessage.getRoomId());
+       */
+/* log.info("message={}", chatMessage.getRoomId());
         log.info("message={}", chatMessage.getMessageId());
         log.info("message={}", chatMessage.getMessage());
         log.info("message={}", chatMessage.getSender());
         log.info("message={}", chatMessage.getCreatedAt());
-        log.info("lastMessage={}", chatRoom.getLastMessage());*/
+        log.info("lastMessage={}", chatRoom.getLastMessage());*//*
+
         chatRoom.handlerActions(session, chatMessage, chatService);
     }
-}
+}*/

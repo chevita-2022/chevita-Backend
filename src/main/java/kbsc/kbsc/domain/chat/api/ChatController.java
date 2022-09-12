@@ -1,3 +1,4 @@
+/*
 package kbsc.kbsc.domain.chat.api;
 import kbsc.kbsc.domain.chat.application.ChatService;
 import kbsc.kbsc.domain.chat.domain.ChatMessage;
@@ -30,4 +31,4 @@ public class ChatController {
     public List<ChatMessage> findRoomMessages(@PathVariable String roomIdx) {
         return chatService.findRoomMessages(roomIdx);
     }
-}
+}*/

@@ -1,3 +1,4 @@
+/*
 package kbsc.kbsc.domain.chat.domain;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import kbsc.kbsc.domain.chat.application.ChatService;
@@ -32,3 +33,4 @@ public class ChatRoom {
     Timestamp createdAt;
 
 }
+*/
