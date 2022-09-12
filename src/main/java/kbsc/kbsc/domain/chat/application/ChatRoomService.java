@@ -46,3 +46,35 @@ public class ChatRoomService {
 
 }
 */
+package kbsc.kbsc.domain.chat.application;
+
+import kbsc.kbsc.domain.chat.domain.ChatMessage;
+import lombok.Getter;
+import org.springframework.web.socket.WebSocketSession;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@Getter
+public class ChatRoomService {
+
+    private final Set<WebSocketSession> sessions = new HashSet<>();
+    private final List<ChatMessage> chatMessages = new ArrayList<>();
+
+
+
+    public void handlerActions(WebSocketSession session, ChatMessage chatMessage, ChatService chatService) {
+        if(chatMessage.getType().equals(ChatMessage.MessageType.ENTER)) {
+            sessions.add(session);
+            //TODO: 나눔 시간대 띄우면서 자동채팅으로 변경하기
+            chatMessage.setMessage(chatMessage.getSender() + "님이 입장했습니다.");
+        }
+        sendMessage(chatMessage, chatService);
+    }
+    private <T> void sendMessage(T message, ChatService chatService) {
+        sessions.parallelStream()
+                .forEach(session -> chatService.sendMessage(session, message));
+    }
+}
