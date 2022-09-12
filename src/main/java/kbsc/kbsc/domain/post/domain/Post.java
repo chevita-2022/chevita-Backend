@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /*
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter //클래스내 모든 필드의 getter 메소드 자동생성
 @NoArgsConstructor //기본 생성자 자동 추가, public Post()와 같은 효과
 @Entity
-@Setter //사용하면 안되는데...
+@Setter //사용하면 안되는데..
 public class Post {
     @Id //해당 테이블의 pk 값
     @Column(name = "postIdx")
@@ -32,53 +31,39 @@ public class Post {
     private Long userId;*/
 
     @Column(length = 30)
-    @NotNull
     private String title;
 
-    @NotNull
     private String contents;
 
     @Column(length = 30)
-    @NotNull
     private String category;
 
-    @NotNull
     private LocalDateTime purchaseDate;
     private String purchasedAt;
 
-    @NotNull
     private LocalDateTime  openedDate;
     private LocalDateTime  shelfLife;
 
-    @NotNull
     private int expirationDate =15;
 
     @Column(length = 20)
-    @NotNull
     private String storageMethod;
 
-    @NotNull
     private int sharingPlace_x;
 
-    @NotNull
     private int sharingPlace_y;
 
-    @NotNull
     private String detailedLocation;
 
-    @NotNull
     private LocalDateTime  createdAt;
     private LocalDateTime  updatedAt;
 
-    @NotNull
     private int totalHearts=0;
     private String receiptImgUrl;
 
-    @NotNull
     private int seenNumber=0;
 
     @Builder //해당 클래스의 빌더 패턴 클래스 생성, 생성자 상단에 선언시 생성자에 포함된 필드만 빌더에 포함 //생성자 대신 사용
-
     public Post(Long postId, Long userId, String title, String contents, String category, LocalDateTime purchaseDate, String purchasedAt, LocalDateTime openedDate, LocalDateTime shelfLife, int expirationDate, String storageMethod, int sharingPlace_x, int sharingPlace_y, String detailedLocation, LocalDateTime createdAt, LocalDateTime updatedAt, int totalHearts, String receiptImgUrl, int seenNumber) {
         this.postId = postId;
         this.userId = userId;
