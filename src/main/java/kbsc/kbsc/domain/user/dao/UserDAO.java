@@ -5,6 +5,6 @@ import kbsc.kbsc.domain.user.domain.Users;
 public interface UserDAO {
 
     Users saveUser(Users userEntity);
-    Users findUserByIdx(Integer userIdx);
+    Users findUserByIdx(Long userIdx);
 
 }

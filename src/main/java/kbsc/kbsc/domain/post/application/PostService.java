@@ -18,11 +18,27 @@ public class PostService {
 
     //게시글 업로드
     @Transactional
-    public Post createPostByUser(PostDto userPostDto){ //TODO: userid 연결해야함
+    public Post createPostByUser(PostDto postDto){ //TODO: userid 연결해야함
         Post newPost = new Post();
-        newPost.setUserId(userPostDto.getUserId());
-        newPost.setTitle(userPostDto.getTitle());
-        newPost.setContents(userPostDto.getContent());
+        newPost.setPostId(postDto.getPostId());
+        newPost.setUserId(postDto.getUserId());
+        newPost.setTitle(postDto.getTitle());
+        newPost.setContents(postDto.getContent());
+        newPost.setCategory(postDto.getCategory());
+        newPost.setPurchaseDate(postDto.getPurchaseDate());
+        newPost.setPurchasedAt(postDto.getPurchasedAt());
+        newPost.setOpenedDate(postDto.getOpenedDate());
+        newPost.setShelfLife(postDto.getShelfLife());
+        newPost.setExpirationDate(postDto.getExpirationDate());
+        newPost.setStorageMethod(postDto.getStorageMethod());
+        newPost.setSharingPlace_x(postDto.getSharingPlace_x());
+        newPost.setSharingPlace_y(postDto.getSharingPlace_y());
+        newPost.setDetailedLocation(postDto.getDetailedLocation());
+        newPost.setCreatedAt(postDto.getCreatedAt());
+        newPost.setUpdatedAt(postDto.getUpdatedAt());
+        newPost.setTotalHearts(postDto.getTotalHearts());
+        newPost.setReceiptImgUrl(postDto.getReceiptImgUrl());
+        newPost.setSeenNumber(postDto.getSeenNumber());
         return postRepository.save(newPost);
     }
 
