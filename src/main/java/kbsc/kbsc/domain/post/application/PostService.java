@@ -23,6 +23,7 @@ public class PostService {
     @Transactional
     public Post createPostByUser(PostDto postDto){ //TODO: userid 연결해야함
         Post newPost = new Post();
+
         newPost.setPostId(postDto.getPostId());
         newPost.setUserId(postDto.getUserId());
         newPost.setTitle(postDto.getTitle());
@@ -58,13 +59,28 @@ public class PostService {
             return new ArrayList<>();
         }
     }
-
+    @Transactional
     public Post updatePost(PostDto postDto) {
         Long postId = postDto.getPostId();
         Post post = postRepository.findByPostId(postId);
         LocalDateTime date = LocalDateTime.now();
+
         post.setTitle(postDto.getTitle());
         post.setContents(postDto.getContent());
+        post.setCategory(postDto.getCategory());
+        post.setPurchaseDate(postDto.getPurchaseDate());
+        post.setPurchasedAt(postDto.getPurchasedAt());
+        post.setOpenedDate(postDto.getOpenedDate());
+        post.setShelfLife(postDto.getShelfLife());
+        post.setExpirationDate(postDto.getExpirationDate());
+        post.setStorageMethod(postDto.getStorageMethod());
+        post.setSharingPlace_x(postDto.getSharingPlace_x());
+        post.setSharingPlace_y(postDto.getSharingPlace_y());
+        post.setDetailedLocation(postDto.getDetailedLocation());
+        post.setTotalHearts(postDto.getTotalHearts());
+        post.setReceiptImgUrl(postDto.getReceiptImgUrl());
+        post.setSeenNumber(postDto.getSeenNumber());
+
         post.setUpdatedAt(date);
         return postRepository.save(post);
     }
