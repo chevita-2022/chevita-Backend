@@ -50,6 +50,15 @@ public class PostController {
         return ResponseEntity.ok().body(commonResponse);
     }
 
+    @ApiOperation(value = "게시글 수정", notes = "게시글 수정")
+    @PatchMapping("/{postId}")
+    public ResponseEntity<? extends BasicResponse> updatePost(@RequestBody PostDto postDto){
+        Post resultPost = postService.updatePost(postDto);
+        return ResponseEntity.ok().body(new CommonResponse(resultPost));
+
+    }
+
+
 /*    @ApiOperation(value = "특정 유저의 게시글 조회", notes = "특정 유저의 게시글 조회")
     @GetMapping("/{userId}")
     public ResponseEntity<? extends BasicResponse> searchByUserId(@PathVariable ("user-id") Long userId){
