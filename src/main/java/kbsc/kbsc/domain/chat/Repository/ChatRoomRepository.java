@@ -1,3 +1,4 @@
+/*
 package kbsc.kbsc.domain.chat.Repository;
 
 import kbsc.kbsc.domain.chat.domain.ChatRoom;
@@ -10,3 +11,4 @@ import java.util.Map;
 @Repository
 public interface ChatRoomRepository extends JpaRepository<ChatRoom, Integer> {
 }
+*/
