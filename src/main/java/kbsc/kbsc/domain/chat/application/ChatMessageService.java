@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
-public class ChatMessageServiece {
+public class ChatMessageService {
 
     private final ChatMessageRepository chatMessageRepository;
 
@@ -22,7 +22,7 @@ public class ChatMessageServiece {
     }
 
     @Transactional
-    public List<ChatMessage> findBychatRoomIdx(Integer chatRoomIdx) {
+    public List<ChatMessage> findBychatRoomIdx(Long chatRoomIdx) {
 
         List<ChatMessage> msgs = new ArrayList<>();
         for (ChatMessage chatMessage: chatMessageRepository.findAll())
@@ -30,17 +30,12 @@ public class ChatMessageServiece {
             if(chatMessage.getChatRoomIdx() == chatRoomIdx)
                 msgs.add(chatMessage);
         }
-        msgs.sort();
+        return new ArrayList<>(msgs);
 
     }
 
-    class msg implements Comparable<ChatMessage> {
-
-
-        @Override
-        public int compareTo(ChatMessage o) {
-            return 0;
-        }
+    public Long save(ChatMessage chatMessage) {
+        return chatMessageRepository.save(chatMessage).getMessageIdx();
     }
 }
 

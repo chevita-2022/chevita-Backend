@@ -3,9 +3,7 @@ package kbsc.kbsc.domain.chat.domain;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 //데이터 베이스 테이블과 1:1 맵핑되도록 구성
@@ -26,13 +24,15 @@ public class ChatMessage {
 
     //@JsonIgnore
     @Id
-    String messageIdx;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ_GENERATOR")
+    Long messageIdx;
 
-    Integer chatRoomIdx;
+    Long chatRoomIdx;
     //@JsonIgnore
     Timestamp createdAt;
     Timestamp updatedAt;
     //MessageType type;
     String contents;
-    Integer receiverIdx;
+    Long receiverIdx;
+    int read;
 }

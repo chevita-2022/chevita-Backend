@@ -1,3 +1,4 @@
+/*
 package kbsc.kbsc.domain.chat.application;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,21 +21,21 @@ import java.util.*;
 @Service
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class ChatService {
-    private final ObjectMapper objectMapper;
-    private Map<String, ChatRoom> chatRooms;
+    //private final ObjectMapper objectMapper;
+    //private Map<String, ChatRoom> chatRooms;
 
-    private final ChatRoomRepository chatRoomRepository;
+    //private final ChatRoomRepository chatRoomRepository;
 
-    public ChatRoom findRoomById(Integer userIdx) {
 
-    }
-
-    @PostConstruct
+    */
+/*@PostConstruct
     private void init() {
         chatRooms = new LinkedHashMap<>();
-    }
+    }*//*
 
-    public List<ChatRoom> findAllRoom(Integer userId) {
+
+    */
+/*public List<ChatRoom> findAllRoom(Integer userId) {
         List<ChatRoom> findRooms = new ArrayList<>();
         for (ChatRoom chatRoom: chatRooms.values()) {
             if(chatRoom.getChaenumi().equals(userId) || chatRoom.getNanumi().equals(userId)) {
@@ -46,8 +47,10 @@ public class ChatService {
         }
         return new ArrayList<>(findRooms);
     }
+*//*
 
-    public List<ChatMessage> findRoomMessages(String roomId) {
+    */
+/*public List<ChatMessage> findRoomMessages(String roomId) {
         ChatRoom chatRoom = chatRooms.get(roomId);
         return  new ArrayList<>(chatRoom.getChatMessages());
     }
@@ -56,16 +59,7 @@ public class ChatService {
         return chatRooms.get(roomId);
     }
 
-    public ChatRoom createRoom(Integer nanumi, Integer chaenumi) {
-        String roomId = UUID.randomUUID().toString();
-        ChatRoom chatRoom = ChatRoom.builder()
-                .roomId(roomId)
-                .chaenumi(chaenumi)
-                .nanumi(nanumi)
-                .build();
-        chatRooms.put(roomId, chatRoom);
-        return chatRoom;
-    }
+
 
     public <T> void sendMessage(WebSocketSession session, T message) {
         try {
@@ -76,6 +70,8 @@ public class ChatService {
             log.error(e.getMessage(), e);
         }
 
-    }
+    }*//*
+
 }
 
+*/

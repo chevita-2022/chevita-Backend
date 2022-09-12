@@ -8,5 +8,5 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public interface ChatRoomRepository extends JpaRepository<ChatRoom, Integer> {
+public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
 }

@@ -1,4 +1,3 @@
-/*
 package kbsc.kbsc.domain.chat.application;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,7 +19,6 @@ import java.util.UUID;
 public class MyWebSocketHandler extends TextWebSocketHandler {
 
     private final ObjectMapper objectMapper;
-    private final ChatService chatService;
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
@@ -29,10 +27,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
         ChatMessage chatMessage = objectMapper.readValue(payload, ChatMessage.class);
 
         //TODO: handleTextMessage 에 관련되지 않은 코드들이 너무 많음 -> 코드 리팩토링
-        String messageId = UUID.randomUUID().toString();
-        chatMessage.setMessageId(messageId);
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        chatMessage.setCreatedAt(timestamp);
+
 
         ChatRoom chatRoom = chatService.findRoomById(chatMessage.getRoomId());
 
@@ -46,18 +41,18 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
         chatRoom.setLastMessage(chatMessage.getMessage());
 
 
-       */
-/* log.info("message={}", chatMessage.getRoomId());
+ log.info("message={}", chatMessage.getRoomId());
         log.info("message={}", chatMessage.getMessageId());
         log.info("message={}", chatMessage.getMessage());
         log.info("message={}", chatMessage.getSender());
         log.info("message={}", chatMessage.getCreatedAt());
-        log.info("lastMessage={}", chatRoom.getLastMessage());*//*
+        log.info("lastMessage={}", chatRoom.getLastMessage());
 
 
 
         chatRoom.handlerActions(session, chatMessage, chatService);
 
     }
+
+
 }
-*/
