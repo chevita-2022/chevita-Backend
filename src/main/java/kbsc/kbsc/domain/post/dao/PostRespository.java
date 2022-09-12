@@ -15,15 +15,6 @@ public class PostRespository {
         this.em = em;
     }
 
-   /* if (post.getPostId() == null) {
-        em.persist(~)
-    } else {
-        em.merge(~)
-    }
-
-    em.flush()
-
-        return post*/
     //게시물 등록
     public Post save(Post post){
         if(post.getPostId() == null){
