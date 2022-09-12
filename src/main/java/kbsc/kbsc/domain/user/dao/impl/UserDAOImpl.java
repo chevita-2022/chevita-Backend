@@ -25,7 +25,7 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public Users findUserByIdx(Integer userIdx) {
+    public Users findUserByIdx(Long userIdx) {
 
         Users userEntity= userRepository.findById(userIdx).orElseThrow(IllegalArgumentException::new);
         return userEntity;

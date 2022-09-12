@@ -19,7 +19,8 @@ public class UserController {
     */
 
     @GetMapping("/users/{userid}")
-    public Users findUserByIdx(@PathVariable int userid) {
+    public Users findUserByIdx(@PathVariable Long userid) {
         return userDAO.findUserByIdx(userid);
     }
+
 }
