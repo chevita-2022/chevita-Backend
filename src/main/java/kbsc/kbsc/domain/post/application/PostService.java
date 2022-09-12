@@ -24,8 +24,8 @@ public class PostService {
     public Post createPostByUser(PostDto postDto){ //TODO: userid 연결해야함
         Post newPost = new Post();
 
-        newPost.setPostId(postDto.getPostId());
-        newPost.setUserId(postDto.getUserId());
+        //newPost.setPostId(postDto.getPostId());
+        newPost.setUserIdx(postDto.getUserId());
         newPost.setTitle(postDto.getTitle());
         newPost.setContents(postDto.getContent());
         newPost.setCategory(postDto.getCategory());
