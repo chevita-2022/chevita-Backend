@@ -9,22 +9,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BoardPostDto {
     private Long postId;
-    private Long userId;
+//    private Long userId;
     private String title;
     private String contents;
 
     public Post createBoard(){
         return Post.builder()
-                .userId(userId)
+//                .user(userId)
                 .title(title)
                 .contents(contents)
                 .build();
     }
 
     @Builder
-    public BoardPostDto(Long postId, Long userId, String title, String contents) {
+    public BoardPostDto(Long postId, String title, String contents) {
         this.postId = postId;
-        this.userId = userId;
+//        this.userId = userId;
         this.title = title;
         this.contents = contents;
     }

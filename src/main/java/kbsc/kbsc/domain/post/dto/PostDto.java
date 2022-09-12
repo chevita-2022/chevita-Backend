@@ -1,7 +1,9 @@
 package kbsc.kbsc.domain.post.dto;
 
+import kbsc.kbsc.domain.user.domain.Users;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -10,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 public class PostDto {
     private Long postId;                // 이 필드는 게시글 수정때문에 유지함.
-    private Long userId;                // 게시글 작성자 id
+    private Users user;
     private String title;
     private String content;
     private String category;
@@ -35,7 +37,7 @@ public class PostDto {
     public String toString(){
         return "PostDto{"+
                 ", postId = "+postId+
-                ", userId = "+userId+
+                ", userId = "+user+
                 ", title = "+title +
                 ", content = "+content+
                 ", category = "+category+

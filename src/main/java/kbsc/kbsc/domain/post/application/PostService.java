@@ -3,10 +3,12 @@ package kbsc.kbsc.domain.post.application;
 import kbsc.kbsc.domain.post.dao.PostRespository;
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.dto.PostDto;
+import kbsc.kbsc.domain.user.domain.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +17,14 @@ import java.util.List;
 @Service
 public class PostService {
     private final PostRespository postRepository;
+    private final EntityManager em;
 
     //게시글 업로드
     @Transactional
-    public Post createPostByUser(PostDto postDto){ //TODO: userid 연결해야함
+    public Post createPost(PostDto postDto){ //TODO: userid 연결해야함
         Post newPost = new Post();
-        newPost.setPostId(postDto.getPostId());
-        newPost.setUserId(postDto.getUserId());
+        newPost.setPostIdx(postDto.getPostId());
+        newPost.setUser(postDto.getUser());
         newPost.setTitle(postDto.getTitle());
         newPost.setContents(postDto.getContent());
         newPost.setCategory(postDto.getCategory());
@@ -55,6 +58,7 @@ public class PostService {
             return new ArrayList<>();
         }
     }
+
 
    /* //유저 아이디로 게시글 조회
     @Transactional

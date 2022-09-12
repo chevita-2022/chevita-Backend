@@ -1,9 +1,13 @@
 package kbsc.kbsc.domain.user.domain;
 
+import kbsc.kbsc.domain.post.domain.Post;
 import lombok.*;
 
 import javax.persistence.*;
+import java.lang.reflect.Member;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 //데이터베이스 테이블과 1:1 맵핑되도록 구성
 
@@ -17,12 +21,15 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Builder
 @Table(name = "Users")
-public class Users {
+public class Users { //Team, Pocket
 
     //pk
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
     Long userIdx;
+
+    @OneToMany(mappedBy = "post")
+    private List<Post> postList = new ArrayList<>();
 
     String userNickName;
     String userAddress;

@@ -29,36 +29,36 @@ public class PostController {
     @ApiOperation(value = "게시글 작성", notes = "게시글 작성")
     @PostMapping
     public ResponseEntity<? extends BasicResponse> addPost(@RequestBody PostDto postDto) {
-        Post resultPost = postService.createPostByUser(postDto);
+        Post resultPost = postService.createPost(postDto);
         return ResponseEntity.ok().body(new CommonResponse(resultPost));
     }
 
     @ApiOperation(value = "postId로 특정 게시글 조회", notes = "postId로 특정 게시글 조회")
     @GetMapping("/{postid}")
-    public ResponseEntity<? extends BasicResponse> getPostByPostId(@PathVariable Long postid){
+    public ResponseEntity<? extends BasicResponse> getPostByPostId(@PathVariable Long postid) {
         Post resultPost = postService.getSinglePost(postid);
         return ResponseEntity.ok().body(new CommonResponse(resultPost));
     }
 
     @ApiOperation(value = "전체 게시글 조회", notes = "전체 게시글 조회")
     @GetMapping()
-    public ResponseEntity<? extends BasicResponse> getAllPostList(){
+    public ResponseEntity<? extends BasicResponse> getAllPostList() {
         List<Post> postList = postService.getAllPost();
-        if(postList.size() == 0)
+        if (postList.size() == 0)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("게시글이 존재하지 않습니다."));
         CommonResponse commonResponse = new CommonResponse(postList);
         return ResponseEntity.ok().body(commonResponse);
     }
-
-/*    @ApiOperation(value = "특정 유저의 게시글 조회", notes = "특정 유저의 게시글 조회")
+}
+    /* @ApiOperation(value = "특정 유저의 게시글 조회", notes = "특정 유저의 게시글 조회")
     @GetMapping("/{userId}")
-    public ResponseEntity<? extends BasicResponse> searchByUserId(@PathVariable ("user-id") Long userId){
+    public ResponseEntity<? extends BasicResponse> searchByUserId(@PathVariable Long userId){
         List<Post> postList = postService.searchPostsByUserId(userId);
         if (postList.size()==0)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("존재하는 게시글이 없습니다"));
         return ResponseEntity.ok().body(new CommonResponse(postList));
 
-    }*/
+
 
 }
     /*
