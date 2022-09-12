@@ -45,7 +45,8 @@ public class ChatRoomService {
 
 
 }
-*/
+*//*
+
 package kbsc.kbsc.domain.chat.application;
 
 import kbsc.kbsc.domain.chat.domain.ChatMessage;
@@ -77,4 +78,4 @@ public class ChatRoomService {
         sessions.parallelStream()
                 .forEach(session -> chatService.sendMessage(session, message));
     }
-}
+}*/
