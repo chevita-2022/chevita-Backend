@@ -17,7 +17,7 @@ public class PostRespository {
 
     //게시물 등록
     public Post save(Post post){
-        if(post.getPostId() == null){
+        if(post.getPostIdx() == null){
             em.persist(post);
         }
         else{
@@ -39,7 +39,7 @@ public class PostRespository {
         return postList;
     }
 */
-    //모든 게시글 조회
+    //게시글 전체 조회
     public List<Post> findAll() throws NoResultException {
         String sql = "select p from Post p";
         List<Post> result = em.createQuery(sql, Post.class).getResultList();

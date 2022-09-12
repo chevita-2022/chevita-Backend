@@ -2,12 +2,14 @@ package kbsc.kbsc.domain.post.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@ToString()
 public class PostDto {
     private Long postId;                // 이 필드는 게시글 수정때문에 유지함.
     private Long userId;                // 게시글 작성자 id
@@ -30,29 +32,4 @@ public class PostDto {
     private int seenNumber=0;
 
 
-
-
-    public String toString(){
-        return "PostDto{"+
-                ", postId = "+postId+
-                ", userId = "+userId+
-                ", title = "+title +
-                ", content = "+content+
-                ", category = "+category+
-                ", purchaseDate = "+ purchaseDate+
-                ", purchasedAt = "+ purchasedAt+
-                ", openedDate = " + openedDate +
-                ", shelfLife = " + shelfLife+
-                ", expirationDate = "+ expirationDate+
-                ", storageMethod = " + storageMethod+
-                ", sharingPlace_x = " + sharingPlace_x+
-                ", sharingPlace_y = " + sharingPlace_y+
-                ", detailedLocation = " + detailedLocation+
-                ", createdAt = "+ createdAt+
-                ", updatedAt = "+ updatedAt+
-                ", totalHearts = " + totalHearts+
-                ", receiptImgUrl = "+ receiptImgUrl+
-                ", seenNumber = " + seenNumber+
-                "}";
-    }
 }

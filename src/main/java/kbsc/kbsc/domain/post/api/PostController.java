@@ -1,14 +1,14 @@
 package kbsc.kbsc.domain.post.api;
 
 //TODO: 해당 코드 모두 실제 서비스 코드로 리팩토링 필요함
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import kbsc.kbsc.domain.post.application.PostService;
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.dto.PostDto;
+import kbsc.kbsc.domain.reservation.application.ReservationService;
+import kbsc.kbsc.domain.reservation.domain.Reservation;
+import kbsc.kbsc.domain.reservation.dto.ReservationDto;
 import kbsc.kbsc.global.util.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +40,7 @@ public class PostController {
         return ResponseEntity.ok().body(new CommonResponse(resultPost));
     }
 
-    @ApiOperation(value = "전체 게시글 조회", notes = "전체 게시글 조회")
+    @ApiOperation(value = "게시글 목록 조회", notes = "게시글 목록 조회")
     @GetMapping()
     public ResponseEntity<? extends BasicResponse> getAllPostList(){
         List<Post> postList = postService.getAllPost();
@@ -57,7 +57,12 @@ public class PostController {
         return ResponseEntity.ok().body(new CommonResponse(resultPost));
 
     }
-
+   /* @ApiOperation(value = "나눔 상태 변경", notes = "나눔 상태 변경")
+    @PatchMapping("/{postId}/reservation")
+    public ResponseEntity<? extends BasicResponse> updateNanumStatus(@PathVariable Long postIdx, @RequestBody ReservationDto reservationDto){
+        Reservation resultReservation = reservationService.updateStatus(reservationDto);
+    }
+*/
 
 /*    @ApiOperation(value = "특정 유저의 게시글 조회", notes = "특정 유저의 게시글 조회")
     @GetMapping("/{userId}")

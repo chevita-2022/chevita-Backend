@@ -32,6 +32,7 @@ public class Users {
     String introduction;
     float vital;
     //TODO: db에서 userHashTag가 아니라 userhashTag라서 이렇게 일단 만듦
+    //TODO: vital 값 계산하는 부분 필요
     String userhashTag;
 
 
