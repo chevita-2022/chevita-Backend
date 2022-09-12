@@ -5,9 +5,10 @@ import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.dto.PostDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
-import javax.transaction.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
