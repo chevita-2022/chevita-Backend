@@ -3,12 +3,15 @@ package kbsc.kbsc.domain.post.application;
 import kbsc.kbsc.domain.post.dao.PostRespository;
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.dto.PostDto;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -54,6 +57,16 @@ public class PostService {
         } catch (NoResultException e){
             return new ArrayList<>();
         }
+    }
+
+    public Post updatePost(PostDto postDto) {
+        Long postId = postDto.getPostId();
+        Post post = postRepository.findByPostId(postId);
+        LocalDateTime date = LocalDateTime.now();
+        post.setTitle(postDto.getTitle());
+        post.setContents(postDto.getContent());
+        post.setUpdatedAt(date);
+        return postRepository.save(post);
     }
 
    /* //유저 아이디로 게시글 조회

@@ -22,4 +22,5 @@ public class UserController {
     public Users findUserByIdx(@PathVariable Long userid) {
         return userDAO.findUserByIdx(userid);
     }
+
 }
