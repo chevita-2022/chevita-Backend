@@ -30,6 +30,4 @@ public class PostDto {
     private int totalHearts=0;
     private String receiptImgUrl;
     private int seenNumber=0;
-
-
 }
