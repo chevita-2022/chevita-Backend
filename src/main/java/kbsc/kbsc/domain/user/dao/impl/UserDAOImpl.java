@@ -60,7 +60,7 @@ public class UserDAOImpl implements UserDAO {
             selectUser.setUserAddress(user.getUserAddress());
             selectUser.setProfileImgUrl(user.getProfileImgUrl());
             selectUser.setIntroduction(user.getIntroduction());
-            selectUser.setUserhashTag(user.getUserhashTag());
+            selectUser.setUserHashTag(user.getUserHashTag());
 
             userRepository.save(selectUser);
         });
