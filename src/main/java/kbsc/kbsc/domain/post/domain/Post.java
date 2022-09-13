@@ -1,9 +1,12 @@
 package kbsc.kbsc.domain.post.domain;
 
+import kbsc.kbsc.domain.hashtag.domain.Hashtag;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
 * ***Entity 클래스를 절대 request/response 클래스로 사용하면 안된다. ***
@@ -54,6 +57,13 @@ public class Post {
     private String receiptImgUrl;
 
     private int seenNumber=0;
+
+    @ManyToMany
+    @JoinTable(name = "POST_HASHTAG",
+            joinColumns = @JoinColumn(name = "postidx"),
+            inverseJoinColumns = @JoinColumn(name = "tagIdx"))
+    private List<Hashtag> hashtags = new ArrayList<>();
+
 
     @Builder //해당 클래스의 빌더 패턴 클래스 생성, 생성자 상단에 선언시 생성자에 포함된 필드만 빌더에 포함 //생성자 대신 사용
     public Post(Long postIdx, Long userIdx, String title, String contents, String category, String purchaseDate, String purchasedAt, String openedDate, String shelfLife, String expirationDate, String storageMethod, String globalLocation, String detailedLocation, LocalDateTime createdAt, LocalDateTime updatedAt, int totalHearts, String receiptImgUrl, int seenNumber) {

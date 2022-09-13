@@ -15,7 +15,7 @@ public class BoardPostDto {
 
     public Post createBoard(){
         return Post.builder()
-                .userId(userId)
+                .userIdx(userId)
                 .title(title)
                 .contents(contents)
                 .build();

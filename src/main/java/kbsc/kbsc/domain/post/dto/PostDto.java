@@ -1,5 +1,6 @@
 package kbsc.kbsc.domain.post.dto;
 
+import kbsc.kbsc.domain.hashtag.domain.Hashtag;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -30,6 +31,5 @@ public class PostDto {
     private int totalHearts=0;
     private String receiptImgUrl;
     private int seenNumber=0;
-
 
 }

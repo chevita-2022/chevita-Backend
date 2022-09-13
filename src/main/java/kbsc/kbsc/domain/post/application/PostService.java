@@ -1,5 +1,8 @@
 package kbsc.kbsc.domain.post.application;
 
+import kbsc.kbsc.domain.hashtag.dao.HashtagRepository;
+import kbsc.kbsc.domain.hashtag.domain.Hashtag;
+import kbsc.kbsc.domain.hashtag.dto.HashtagDto;
 import kbsc.kbsc.domain.post.dao.PostRespository;
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.dto.PostDto;
@@ -18,12 +21,14 @@ import java.util.List;
 @Service
 public class PostService {
     private final PostRespository postRepository;
+    final HashtagRepository hashtagRepository; //hashtag 객체를 돌려줌
 
     //게시글 업로드
     @Transactional
-    public Post createPostByUser(PostDto postDto){ //TODO: userid 연결해야함
+    public Post createPostByUser(PostDto postDto, HashtagDto hashtagDto){ //TODO: userid 연결해야함
         Post newPost = new Post();
-//      newPost.setPostIdx(postDto.getPostId());
+        Hashtag hashtag = new Hashtag();
+
         newPost.setUserIdx(postDto.getUserId());
         newPost.setTitle(postDto.getTitle());
         newPost.setContents(postDto.getContent());
@@ -43,6 +48,15 @@ public class PostService {
         newPost.setTotalHearts(postDto.getTotalHearts());
         newPost.setReceiptImgUrl(postDto.getReceiptImgUrl());
         newPost.setSeenNumber(postDto.getSeenNumber());
+
+        //해시태그 설정하는 부분 - 데이터 모두 채움
+        hashtag.setTagIdx(hashtagDto.getTagIdx());
+        hashtag.setTagName(hashtag.getTagName());
+        hashtagRepository.save(hashtag);
+
+//        List<Hashtag> hashtags = hashtagRepository.save(newPost.getHashtags());
+        newPost.setHashtags(newPost.getHashtags()); //List<Hashtag> hashtags 리턴
+
         return postRepository.save(newPost);
     }
 

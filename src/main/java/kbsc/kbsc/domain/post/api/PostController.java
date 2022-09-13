@@ -2,6 +2,8 @@ package kbsc.kbsc.domain.post.api;
 
 //TODO: 해당 코드 모두 실제 서비스 코드로 리팩토링 필요함
 import io.swagger.annotations.ApiOperation;
+import kbsc.kbsc.domain.hashtag.domain.Hashtag;
+import kbsc.kbsc.domain.hashtag.dto.HashtagDto;
 import kbsc.kbsc.domain.post.application.PostService;
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.dto.PostDto;
@@ -28,8 +30,8 @@ public class PostController {
 
     @ApiOperation(value = "게시글 작성", notes = "게시글 작성")
     @PostMapping
-    public ResponseEntity<? extends BasicResponse> addPost(@RequestBody PostDto postDto) {
-        Post resultPost = postService.createPostByUser(postDto);
+    public ResponseEntity<? extends BasicResponse> addPost(@RequestBody PostDto postDto, @RequestBody HashtagDto hashtagDto) {
+        Post resultPost = postService.createPostByUser(postDto, hashtagDto);
         return ResponseEntity.ok().body(new CommonResponse(resultPost));
     }
 
