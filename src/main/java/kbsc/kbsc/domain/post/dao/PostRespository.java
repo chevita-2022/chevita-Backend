@@ -1,6 +1,7 @@
 package kbsc.kbsc.domain.post.dao;
 
 import kbsc.kbsc.domain.post.domain.Post;
+import kbsc.kbsc.domain.postimage.Repository.PostImageRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -11,8 +12,11 @@ import java.util.List;
 public class PostRespository {
     private final EntityManager em;
 
-    public PostRespository(EntityManager em) {
+    final PostImageRepository postImageRepository;
+
+    public PostRespository(EntityManager em, PostImageRepository postImageRepository) {
         this.em = em;
+        this.postImageRepository = postImageRepository;
     }
 
     //게시물 등록

@@ -2,27 +2,34 @@ package kbsc.kbsc.domain.post.api;
 
 //TODO: 해당 코드 모두 실제 서비스 코드로 리팩토링 필요함
 import io.swagger.annotations.ApiOperation;
+import kbsc.kbsc.domain.post.application.PostResultService;
 import kbsc.kbsc.domain.post.application.PostService;
 import kbsc.kbsc.domain.post.domain.Post;
+import kbsc.kbsc.domain.post.domain.PostResult;
 import kbsc.kbsc.domain.post.dto.PostDto;
+import kbsc.kbsc.domain.postimage.dao.impl.PostImageDAOImpl;
 import kbsc.kbsc.domain.reservation.application.ReservationService;
 import kbsc.kbsc.domain.reservation.domain.Reservation;
 import kbsc.kbsc.domain.reservation.dto.ReservationDto;
 import kbsc.kbsc.global.util.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RequestMapping("/posts")
 @RestController
 public class PostController {
 
     private final PostService postService;
+    final PostResultService postResultService;
 
-    public PostController(PostService postService) {
+    public PostController(PostService postService, PostResultService postResultService) {
         this.postService = postService;
+        this.postResultService = postResultService;
     }
 
 
@@ -37,7 +44,8 @@ public class PostController {
     @GetMapping("/{postid}")
     public ResponseEntity<? extends BasicResponse> getPostByPostId(@PathVariable Long postid){
         Post resultPost = postService.getSinglePost(postid);
-        return ResponseEntity.ok().body(new CommonResponse(resultPost));
+        PostResult postResult = postResultService.findPostResult(resultPost);
+        return ResponseEntity.ok().body(new CommonResponse(postResult));
     }
 
     @ApiOperation(value = "게시글 목록 조회", notes = "게시글 목록 조회")
