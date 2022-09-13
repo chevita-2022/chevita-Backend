@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,4 +31,5 @@ public class PostDto {
     private int totalHearts=0;
     private String receiptImgUrl;
     private int seenNumber=0;
+    private List<String> imgUrls;
 }

@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -35,9 +37,12 @@ public class PostController {
 
     @ApiOperation(value = "게시글 작성", notes = "게시글 작성")
     @PostMapping
-    public ResponseEntity<? extends BasicResponse> addPost(@RequestBody PostDto postDto) {
+    public ResponseEntity<? extends BasicResponse> addPost(@RequestBody PostDto postDto) throws IOException {
         Post resultPost = postService.createPostByUser(postDto);
-        return ResponseEntity.ok().body(new CommonResponse(resultPost));
+        PostResult postResult = new PostResult(resultPost);
+        postResult.setImgUrls(postDto.getImgUrls());
+        PostResult result = postResultService.saveImg(postResult);
+        return ResponseEntity.ok().body(new CommonResponse(result));
     }
 
     @ApiOperation(value = "postId로 특정 게시글 조회", notes = "postId로 특정 게시글 조회")
@@ -54,13 +59,18 @@ public class PostController {
         List<Post> postList = postService.getAllPost();
         if(postList.size() == 0)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("게시글이 존재하지 않습니다."));
-        CommonResponse commonResponse = new CommonResponse(postList);
+        List<PostResult> postResults = new ArrayList<>();
+        for (Post post: postList) {
+            PostResult postResult = postResultService.findPostResult(post);
+            postResults.add(postResult);
+        }
+        CommonResponse commonResponse = new CommonResponse(postResults);
         return ResponseEntity.ok().body(commonResponse);
     }
 
     @ApiOperation(value = "게시글 수정", notes = "게시글 수정")
     @PatchMapping("/{postId}")
-    public ResponseEntity<? extends BasicResponse> updatePost(@RequestBody PostDto postDto){
+    public ResponseEntity<? extends BasicResponse> updatePost(@RequestBody PostDto postDto) {
         Post resultPost = postService.updatePost(postDto);
         return ResponseEntity.ok().body(new CommonResponse(resultPost));
 
