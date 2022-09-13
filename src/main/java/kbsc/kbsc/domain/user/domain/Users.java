@@ -18,9 +18,9 @@ import javax.persistence.*;
 @Table(name = "Users")
 public class Users {
 
+    //@GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
     //pk
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
     Long userIdx;
 
     String userNickName;

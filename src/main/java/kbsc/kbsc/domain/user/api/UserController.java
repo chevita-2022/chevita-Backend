@@ -6,6 +6,7 @@ import kbsc.kbsc.domain.user.domain.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,11 @@ public class UserController {
         return chatService.findRoomMessages(roomIdx);
     }
     */
+
+    @PostMapping
+    public Users saveUser(@RequestBody Users user) throws IOException {
+        return userDAO.saveUser(user);
+    }
 
     @GetMapping("/{userid}")
     public Users findUserByIdx(@PathVariable Long userid) {
