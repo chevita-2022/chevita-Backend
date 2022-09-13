@@ -13,9 +13,29 @@ import java.util.List;
 @Getter
 @Setter
 public class PostResult {
-
-
     public PostResult(Post post) {
+        this.postIdx = postIdx;
+        this.userIdx = userIdx;
+        this.title = title;
+        this.contents = contents;
+        this.category = category;
+        this.purchaseDate = purchaseDate;
+        this.purchasedAt = purchasedAt;
+        this.openedDate = openedDate;
+        this.shelfLife = shelfLife;
+        this.expirationDate = expirationDate;
+        this.storageMethod = storageMethod;
+        this.globalLocation = globalLocation;
+        this.detailedLocation = detailedLocation;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.totalHearts = totalHearts;
+        this.receiptImgUrl = receiptImgUrl;
+        this.seenNumber = seenNumber;
+        this.imgUrls = new ArrayList<>();
+    }
+
+    /*public PostResult(Post post) {
         this.postIdx = post.getPostIdx();
         this.userIdx = post.getUserIdx();
         this.title = post.getTitle();
@@ -27,8 +47,6 @@ public class PostResult {
         this.shelfLife = post.getShelfLife();
         this.expirationDate = post.getExpirationDate();
         this.storageMethod = post.getStorageMethod();
-        this.sharingPlace_x = post.getSharingPlace_x();
-        this.sharingPlace_y = post.getSharingPlace_y();
         this.detailedLocation = post.getDetailedLocation();
         this.createdAt = post.getCreatedAt();
         this.updatedAt = post.getUpdatedAt();
@@ -36,35 +54,27 @@ public class PostResult {
         this.receiptImgUrl = post.getReceiptImgUrl();
         this.seenNumber = seenNumber;
         this.imgUrls = new ArrayList<>();
-    }
+    }*/
+
 
     private Long postIdx;
     private Long userIdx;
     private String title;
     private String contents;
     private String category;
-
-    private LocalDateTime purchaseDate;
+    private String purchaseDate;
     private String purchasedAt;
-
-    private LocalDateTime  openedDate;
-    private LocalDateTime  shelfLife;
-
-    private int expirationDate;
+    private String  openedDate;
+    private String  shelfLife;
+    private String expirationDate;
     private String storageMethod;
-
-    private int sharingPlace_x;
-
-    private int sharingPlace_y;
-
-    private String detailedLocation;
-
+    private String globalLocation; //기본주소
+    private String detailedLocation; //상세 주소
     private LocalDateTime  createdAt;
     private LocalDateTime  updatedAt;
     private int totalHearts=0;
     private String receiptImgUrl;
     private int seenNumber=0;
-
     List<String> imgUrls;
 
 
