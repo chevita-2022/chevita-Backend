@@ -18,6 +18,7 @@ public class PostRespository {
     //게시물 등록
     public Post save(Post post){
         if(post.getPostIdx() == null){
+            post.setPostIdx(post.getPostIdx());
             em.persist(post);
         }
         else{
