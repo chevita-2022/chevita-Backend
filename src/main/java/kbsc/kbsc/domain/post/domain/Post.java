@@ -1,9 +1,14 @@
 package kbsc.kbsc.domain.post.domain;
 
+import kbsc.kbsc.domain.hashtag.domain.Hashtag;
+import kbsc.kbsc.domain.reservation.domain.Reservation;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.swing.text.html.HTML;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
 * ***Entity 클래스를 절대 request/response 클래스로 사용하면 안된다. ***
@@ -15,9 +20,20 @@ import java.time.LocalDateTime;
 @Setter //사용하면 안되는데..
 public class Post {
     @Id //해당 테이블의 pk 값
+    @Column(name = "POSTIDX")
     @GeneratedValue(strategy = GenerationType.IDENTITY) //pk 생성 규칙
     private Long postIdx;
     private Long userIdx;
+
+    @ManyToMany
+    @JoinTable(name = "POST_HASHTAG",
+                joinColumns = @JoinColumn(name = "POSTIDX"),
+                inverseJoinColumns = @JoinColumn(name = "TAGIDX"))
+    private List<Hashtag> hashtags = new ArrayList<>();
+
+    /*@OneToOne
+    @JoinColumn(name = "RESERVATION_ID")
+    private Reservation reservation;*/
 
   /* //1:N일 때 외래키는 항상 N쪽에 존재
     @ManyToOne
@@ -58,10 +74,11 @@ public class Post {
 
     private int seenNumber=0;
 
-    @Builder //해당 클래스의 빌더 패턴 클래스 생성, 생성자 상단에 선언시 생성자에 포함된 필드만 빌더에 포함 //생성자 대신 사용
-    public Post(Long postId, Long userId, String title, String contents, String category, LocalDateTime purchaseDate, String purchasedAt, LocalDateTime openedDate, LocalDateTime shelfLife, int expirationDate, String storageMethod, int sharingPlace_x, int sharingPlace_y, String detailedLocation, LocalDateTime createdAt, LocalDateTime updatedAt, int totalHearts, String receiptImgUrl, int seenNumber) {
-        this.postIdx = postId;
-        this.userIdx = userId;
+    @Builder
+    public Post(Long postIdx, Long userIdx, List<Hashtag> hashtags, String title, String contents, String category, LocalDateTime purchaseDate, String purchasedAt, LocalDateTime openedDate, LocalDateTime shelfLife, int expirationDate, String storageMethod, int sharingPlace_x, int sharingPlace_y, String detailedLocation, LocalDateTime createdAt, LocalDateTime updatedAt, int totalHearts, String receiptImgUrl, int seenNumber) {
+        this.postIdx = postIdx;
+        this.userIdx = userIdx;
+        this.hashtags = hashtags;
         this.title = title;
         this.contents = contents;
         this.category = category;
@@ -80,4 +97,9 @@ public class Post {
         this.receiptImgUrl = receiptImgUrl;
         this.seenNumber = seenNumber;
     }
+
+    /*//연관관계 매핑
+    public void setReservation(Reservation reservation){
+        this.reservation = reservation;
+    }*/
 }

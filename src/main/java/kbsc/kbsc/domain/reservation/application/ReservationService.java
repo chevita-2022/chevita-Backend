@@ -14,12 +14,12 @@ public class ReservationService {
 
     //예약 요청이 들어오면 예약 테이블 생성
     @Transactional
-    public Reservation createReservation(ReservationDto reservationDto){
+    public Reservation updateStatus(ReservationDto reservationDto){
         Reservation reserve = new Reservation();
 
-        reserve.setReserveIdx(reserve.getReserveIdx());
+//        reserve.setReserveIdx(reserve.getReserveIdx());
         reserve.setUserIdx(reserve.getUserIdx());
-        reserve.setPostIdx(reserve.getPostIdx());
+//        reserve.setPost(reserve.getPost());
         reserve.setTakerIdx(reserve.getTakerIdx());
         reserve.setConfirmedSharingTime(reserve.getConfirmedSharingTime());
         reserve.setCreatedAt(reserve.getUpdatedAt());

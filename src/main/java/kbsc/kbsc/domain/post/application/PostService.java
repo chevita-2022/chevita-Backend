@@ -1,8 +1,10 @@
 package kbsc.kbsc.domain.post.application;
 
+import kbsc.kbsc.domain.hashtag.domain.Hashtag;
 import kbsc.kbsc.domain.post.dao.PostRespository;
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.dto.PostDto;
+import kbsc.kbsc.domain.reservation.domain.Reservation;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,13 +20,18 @@ import java.util.List;
 @Service
 public class PostService {
     private final PostRespository postRepository;
+    private Reservation reservation;
+
 
     //게시글 업로드
     @Transactional
     public Post createPostByUser(PostDto postDto){ //TODO: userid 연결해야함
         Post newPost = new Post();
+        Hashtag hashtags = new Hashtag();
 
-        //newPost.setPostId(postDto.getPostId());
+//        Long reservationId = postDto.getReservationId();
+//        newPost.setReservation(postDto.getReservation());
+        newPost.setPostIdx(postDto.getPostId());
         newPost.setUserIdx(postDto.getUserId());
         newPost.setTitle(postDto.getTitle());
         newPost.setContents(postDto.getContent());
@@ -43,6 +50,8 @@ public class PostService {
         newPost.setTotalHearts(postDto.getTotalHearts());
         newPost.setReceiptImgUrl(postDto.getReceiptImgUrl());
         newPost.setSeenNumber(postDto.getSeenNumber());
+
+        newPost.setHashtags(postDto.getHashtags());
         return postRepository.save(newPost);
     }
 

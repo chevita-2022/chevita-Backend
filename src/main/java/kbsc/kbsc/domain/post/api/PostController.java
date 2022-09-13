@@ -1,13 +1,8 @@
 package kbsc.kbsc.domain.post.api;
-
-//TODO: 해당 코드 모두 실제 서비스 코드로 리팩토링 필요함
 import io.swagger.annotations.ApiOperation;
 import kbsc.kbsc.domain.post.application.PostService;
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.dto.PostDto;
-import kbsc.kbsc.domain.reservation.application.ReservationService;
-import kbsc.kbsc.domain.reservation.domain.Reservation;
-import kbsc.kbsc.domain.reservation.dto.ReservationDto;
 import kbsc.kbsc.global.util.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

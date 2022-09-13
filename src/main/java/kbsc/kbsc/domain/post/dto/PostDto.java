@@ -1,11 +1,14 @@
 package kbsc.kbsc.domain.post.dto;
 
+import kbsc.kbsc.domain.hashtag.domain.Hashtag;
+import kbsc.kbsc.domain.reservation.domain.Reservation;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,6 +16,8 @@ import java.time.LocalDateTime;
 public class PostDto {
     private Long postId;                // 이 필드는 게시글 수정때문에 유지함.
     private Long userId;                // 게시글 작성자 id
+    private Reservation reservation;
+    private List<Hashtag> hashtags;
     private String title;
     private String content;
     private String category;
