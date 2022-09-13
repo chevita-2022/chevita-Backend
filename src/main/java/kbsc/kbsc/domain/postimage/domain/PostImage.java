@@ -15,8 +15,9 @@ import javax.persistence.*;
 @Table(name = "PostImage")
 public class PostImage {
 
+    //autoincrement로 변경하기
+    //TODO:값없다구 그래서 PostImage imgIdx 디폴트값 임시로 넣어둠
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long imgIdx;
 
     Long postIdx;
