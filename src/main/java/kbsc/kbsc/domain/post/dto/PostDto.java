@@ -16,15 +16,15 @@ public class PostDto {
     private String title;
     private String content;
     private String category;
-    private LocalDateTime purchaseDate;
+    private String purchaseDate;
     private String purchasedAt;
-    private LocalDateTime  openedDate; //개봉일자
-    private LocalDateTime  shelfLife; //유통기한
-    private int expirationDate =15; //소비기한
+    private String  openedDate; //개봉일자
+    private String  shelfLife; //유통기한
+    private String expirationDate; //소비기한
     private String storageMethod;
-    private int sharingPlace_x;
-    private int sharingPlace_y;
-    private String detailedLocation;
+
+    private String globalLocation; //일반 주소
+    private String detailedLocation; //상세 주소
     private LocalDateTime  createdAt;
     private LocalDateTime  updatedAt;
     private int totalHearts=0;
