@@ -1,7 +1,14 @@
 package kbsc.kbsc.domain.user.dao.impl;
 
+import kbsc.kbsc.domain.post.application.PostResultService;
+import kbsc.kbsc.domain.post.dao.PostJpaRepository;
 import kbsc.kbsc.domain.post.dao.PostRespository;
 import kbsc.kbsc.domain.post.domain.Post;
+import kbsc.kbsc.domain.post.domain.PostResult;
+import kbsc.kbsc.domain.postimage.application.PostImageService;
+import kbsc.kbsc.domain.postimage.dao.impl.PostImageDAOImpl;
+import kbsc.kbsc.domain.reservation.dao.ReservationJpaRepository;
+import kbsc.kbsc.domain.reservation.domain.Reservation;
 import kbsc.kbsc.domain.s3.S3Service;
 import kbsc.kbsc.domain.user.Repository.UserRepository;
 import kbsc.kbsc.domain.user.dao.UserDAO;
@@ -12,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +30,21 @@ public class UserDAOImpl implements UserDAO {
     final UserRepository userRepository;
     final S3Service s3Service;
 
+    final PostResultService postResultService;
+    final ReservationJpaRepository reservationJpaRepository;
+    final PostJpaRepository postJpaRepository;
+
     //의존성 주입, 싱글톤 빈으로 미리 올려둠
     @Autowired
-    public UserDAOImpl(UserRepository userRepository, S3Service s3Service) {
+    public UserDAOImpl(UserRepository userRepository, S3Service s3Service,
+                       ReservationJpaRepository reservationJpaRepository,
+                       PostJpaRepository postJpaRepository,
+                       PostResultService postResultService) {
         this.s3Service = s3Service;
         this.userRepository = userRepository;
+        this.reservationJpaRepository = reservationJpaRepository;
+        this.postJpaRepository = postJpaRepository;
+        this.postResultService = postResultService;
     }
 
     @Override
@@ -39,7 +57,46 @@ public class UserDAOImpl implements UserDAO {
         return userEntity;
     }
 
+    //나눔기록 조회 예약 테이블 조회 -> 나눔완료된 postIdx 중 작성자 Idx == userId
+    public List<PostResult> findNanumHistory(Long userId) {
+        List<PostResult> postResults = new ArrayList<>();
+        List<Reservation> reservations = reservationJpaRepository.findAll();
+        for (Reservation reservation: reservations) {
+            if(reservation.getNanumStatus() == "나눔완료" && reservation.getNanumiIdx() == userId)
+            {
+                log.info("nanum completed={}", reservation);
+                Optional<Post> post = postJpaRepository.findById(reservation.getPostIdx());
+                post.ifPresent(selectedPost -> {
+                    PostResult postResult = postResultService.findPostResult(selectedPost);
+                    postResults.add(postResult);
+                });
 
+            }
+
+
+        }
+        return postResults;
+    }
+
+    public List<PostResult> findChaenumiHistory(Long userId) {
+        List<PostResult> postResults = new ArrayList<>();
+        List<Reservation> reservations = reservationJpaRepository.findAll();
+        for (Reservation reservation: reservations) {
+            if(reservation.getNanumStatus() == "나눔완료" && reservation.getTakerIdx() == userId)
+            {
+                log.info("nanum completed={}", reservation);
+                Optional<Post> post = postJpaRepository.findById(reservation.getPostIdx());
+                post.ifPresent(selectedPost -> {
+                    PostResult postResult = postResultService.findPostResult(selectedPost);
+                    postResults.add(postResult);
+                });
+
+            }
+
+
+        }
+        return postResults;
+    }
 
     @Override
     public Users findUserByIdx(Long userIdx) {
