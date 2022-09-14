@@ -12,9 +12,9 @@ import java.util.List;
 
 @Getter
 @Setter
-public class PostResult {
+public class PostResult {/*
     public PostResult(Post post) {
-        this.postIdx = postIdx;
+        this.postIdx = post.getPostIdx();
         this.userIdx = userIdx;
         this.title = title;
         this.contents = contents;
@@ -33,16 +33,18 @@ public class PostResult {
         this.receiptImgUrl = receiptImgUrl;
         this.seenNumber = seenNumber;
         this.imgUrls = new ArrayList<>();
-    }
+    }*/
 
-    /*public PostResult(Post post) {
+    public PostResult(Post post) {
         this.postIdx = post.getPostIdx();
         this.userIdx = post.getUserIdx();
         this.title = post.getTitle();
+
         this.contents = post.getContents();
         this.category = post.getCategory();
         this.purchaseDate = post.getPurchaseDate();
         this.purchasedAt = post.getPurchasedAt();
+
         this.openedDate = post.getOpenedDate();
         this.shelfLife = post.getShelfLife();
         this.expirationDate = post.getExpirationDate();
@@ -52,9 +54,11 @@ public class PostResult {
         this.updatedAt = post.getUpdatedAt();
         this.totalHearts = post.getTotalHearts();
         this.receiptImgUrl = post.getReceiptImgUrl();
-        this.seenNumber = seenNumber;
+        this.seenNumber = post.getSeenNumber();
         this.imgUrls = new ArrayList<>();
-    }*/
+        this.globalLocation = post.getGlobalLocation();
+        //Post 칼럼의 reserveIdx??
+    }
 
 
     private Long postIdx;
@@ -75,6 +79,8 @@ public class PostResult {
     private int totalHearts=0;
     private String receiptImgUrl;
     private int seenNumber=0;
+
+    private int reserveIdx;
     List<String> imgUrls;
 
 

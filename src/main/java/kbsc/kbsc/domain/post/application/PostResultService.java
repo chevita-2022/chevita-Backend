@@ -20,7 +20,6 @@ public class PostResultService {
     final PostImageDAOImpl postImageDAO;
     final PostImageRepository postImageRepository;
 
-    private static Long imgIdx = 0L;
 
     @Autowired
     public PostResultService(PostImageDAOImpl postImageDAO, PostImageRepository postImageRepository) {
@@ -52,15 +51,15 @@ public class PostResultService {
 
     }*/
     public PostResult saveImg(PostResult postResult) throws IOException {
-        Long postIdx = postResult.getPostIdx();
-        List<String> urls = postResult.getImgUrls();
+            Long postIdx = postResult.getPostIdx();
+            log.info("postIdx={}", postIdx);//여기 null 찍힘
+            List<String> urls = postResult.getImgUrls();
         List<String> results = new ArrayList<>();
         for(String url : urls) {
-            PostImage postImage = new PostImage();
-            postImage.setImgIdx(++imgIdx);
-            log.info("ImgIdx={}", postImage.getImgIdx());
-            postImage.setImgUrl(url);
-            postImage.setPostIdx(postIdx);
+            PostImage postImage = PostImage.builder().
+                    postIdx(postIdx).
+                    imgUrl(url).
+                    build();
             postImageDAO.saveImgUrl(postImage);
             results.add(postImage.getImgUrl());
         }
