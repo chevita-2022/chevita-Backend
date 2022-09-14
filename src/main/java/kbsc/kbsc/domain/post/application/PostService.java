@@ -23,9 +23,8 @@ public class PostService {
     @Transactional
     public Post createPostByUser(PostDto postDto){ //TODO: userid 연결해야함
         Post newPost = new Post();
-
-        newPost.setPostId(postDto.getPostId());
-        newPost.setUserId(postDto.getUserId());
+//      newPost.setPostIdx(postDto.getPostId());
+        newPost.setUserIdx(postDto.getUserId());
         newPost.setTitle(postDto.getTitle());
         newPost.setContents(postDto.getContent());
         newPost.setCategory(postDto.getCategory());
@@ -35,9 +34,10 @@ public class PostService {
         newPost.setShelfLife(postDto.getShelfLife());
         newPost.setExpirationDate(postDto.getExpirationDate());
         newPost.setStorageMethod(postDto.getStorageMethod());
-        newPost.setSharingPlace_x(postDto.getSharingPlace_x());
-        newPost.setSharingPlace_y(postDto.getSharingPlace_y());
+        //주소
+        newPost.setGlobalLocation(postDto.getGlobalLocation());
         newPost.setDetailedLocation(postDto.getDetailedLocation());
+
         newPost.setCreatedAt(postDto.getCreatedAt());
         newPost.setUpdatedAt(postDto.getUpdatedAt());
         newPost.setTotalHearts(postDto.getTotalHearts());
@@ -74,8 +74,6 @@ public class PostService {
         post.setShelfLife(postDto.getShelfLife());
         post.setExpirationDate(postDto.getExpirationDate());
         post.setStorageMethod(postDto.getStorageMethod());
-        post.setSharingPlace_x(postDto.getSharingPlace_x());
-        post.setSharingPlace_y(postDto.getSharingPlace_y());
         post.setDetailedLocation(postDto.getDetailedLocation());
         post.setTotalHearts(postDto.getTotalHearts());
         post.setReceiptImgUrl(postDto.getReceiptImgUrl());

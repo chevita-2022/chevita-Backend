@@ -1,6 +1,7 @@
 package kbsc.kbsc.domain.post.dao;
 
 import kbsc.kbsc.domain.post.domain.Post;
+import kbsc.kbsc.domain.postimage.Repository.PostImageRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -11,13 +12,17 @@ import java.util.List;
 public class PostRespository {
     private final EntityManager em;
 
-    public PostRespository(EntityManager em) {
+    final PostImageRepository postImageRepository;
+
+    public PostRespository(EntityManager em, PostImageRepository postImageRepository) {
         this.em = em;
+        this.postImageRepository = postImageRepository;
     }
 
     //게시물 등록
     public Post save(Post post){
-        if(post.getPostId() == null){
+        if(post.getPostIdx() == null){
+            post.setPostIdx(post.getPostIdx());
             em.persist(post);
         }
         else{
@@ -39,7 +44,7 @@ public class PostRespository {
         return postList;
     }
 */
-    //모든 게시글 조회
+    //게시글 전체 조회
     public List<Post> findAll() throws NoResultException {
         String sql = "select p from Post p";
         List<Post> result = em.createQuery(sql, Post.class).getResultList();

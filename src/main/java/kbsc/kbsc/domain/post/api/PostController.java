@@ -1,63 +1,86 @@
 package kbsc.kbsc.domain.post.api;
 
 //TODO: 해당 코드 모두 실제 서비스 코드로 리팩토링 필요함
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import kbsc.kbsc.domain.post.application.PostResultService;
 import kbsc.kbsc.domain.post.application.PostService;
 import kbsc.kbsc.domain.post.domain.Post;
+import kbsc.kbsc.domain.post.domain.PostResult;
 import kbsc.kbsc.domain.post.dto.PostDto;
+import kbsc.kbsc.domain.postimage.dao.impl.PostImageDAOImpl;
+import kbsc.kbsc.domain.reservation.application.ReservationService;
+import kbsc.kbsc.domain.reservation.domain.Reservation;
+import kbsc.kbsc.domain.reservation.dto.ReservationDto;
 import kbsc.kbsc.global.util.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RequestMapping("/posts")
 @RestController
 public class PostController {
 
     private final PostService postService;
+    final PostResultService postResultService;
 
-    public PostController(PostService postService) {
+    public PostController(PostService postService, PostResultService postResultService) {
         this.postService = postService;
+        this.postResultService = postResultService;
     }
 
 
     @ApiOperation(value = "게시글 작성", notes = "게시글 작성")
     @PostMapping
-    public ResponseEntity<? extends BasicResponse> addPost(@RequestBody PostDto postDto) {
+    public ResponseEntity<? extends BasicResponse> addPost(@RequestBody PostDto postDto) throws IOException {
         Post resultPost = postService.createPostByUser(postDto);
-        return ResponseEntity.ok().body(new CommonResponse(resultPost));
+        PostResult postResult = new PostResult(resultPost);
+        postResult.setImgUrls(postDto.getImgUrls());
+        PostResult result = postResultService.saveImg(postResult);
+        return ResponseEntity.ok().body(new CommonResponse(result));
     }
 
     @ApiOperation(value = "postId로 특정 게시글 조회", notes = "postId로 특정 게시글 조회")
     @GetMapping("/{postid}")
     public ResponseEntity<? extends BasicResponse> getPostByPostId(@PathVariable Long postid){
         Post resultPost = postService.getSinglePost(postid);
-        return ResponseEntity.ok().body(new CommonResponse(resultPost));
+        PostResult postResult = postResultService.findPostResult(resultPost);
+        return ResponseEntity.ok().body(new CommonResponse(postResult));
     }
 
-    @ApiOperation(value = "전체 게시글 조회", notes = "전체 게시글 조회")
+    @ApiOperation(value = "게시글 목록 조회", notes = "게시글 목록 조회")
     @GetMapping()
     public ResponseEntity<? extends BasicResponse> getAllPostList(){
         List<Post> postList = postService.getAllPost();
         if(postList.size() == 0)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("게시글이 존재하지 않습니다."));
-        CommonResponse commonResponse = new CommonResponse(postList);
+        List<PostResult> postResults = new ArrayList<>();
+        for (Post post: postList) {
+            PostResult postResult = postResultService.findPostResult(post);
+            postResults.add(postResult);
+        }
+        CommonResponse commonResponse = new CommonResponse(postResults);
         return ResponseEntity.ok().body(commonResponse);
     }
 
     @ApiOperation(value = "게시글 수정", notes = "게시글 수정")
     @PatchMapping("/{postId}")
-    public ResponseEntity<? extends BasicResponse> updatePost(@RequestBody PostDto postDto){
+    public ResponseEntity<? extends BasicResponse> updatePost(@RequestBody PostDto postDto) {
         Post resultPost = postService.updatePost(postDto);
         return ResponseEntity.ok().body(new CommonResponse(resultPost));
 
     }
-
+   /* @ApiOperation(value = "나눔 상태 변경", notes = "나눔 상태 변경")
+    @PatchMapping("/{postId}/reservation")
+    public ResponseEntity<? extends BasicResponse> updateNanumStatus(@PathVariable Long postIdx, @RequestBody ReservationDto reservationDto){
+        Reservation resultReservation = reservationService.updateStatus(reservationDto);
+    }
+*/
 
 /*    @ApiOperation(value = "특정 유저의 게시글 조회", notes = "특정 유저의 게시글 조회")
     @GetMapping("/{userId}")

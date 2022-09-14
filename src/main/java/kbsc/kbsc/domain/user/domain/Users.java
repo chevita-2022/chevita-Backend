@@ -18,9 +18,9 @@ import javax.persistence.*;
 @Table(name = "Users")
 public class Users {
 
-    //@GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
     //pk
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
     Long userIdx;
 
     String userNickName;
@@ -28,8 +28,8 @@ public class Users {
     String profileImgUrl;
     String introduction;
     float vital;
-    //TODO: db에서 userHashTag가 아니라 userhashTag라서 이렇게 일단 만듦
-    String userhashTag;
+    //TODO: vital 값 계산하는 부분 필요?
+    String userHashTag;
 
 
 }

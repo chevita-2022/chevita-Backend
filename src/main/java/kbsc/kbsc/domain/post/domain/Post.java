@@ -1,9 +1,6 @@
 package kbsc.kbsc.domain.post.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,11 +15,9 @@ import java.time.LocalDateTime;
 @Setter //사용하면 안되는데..
 public class Post {
     @Id //해당 테이블의 pk 값
-    @Column(name = "postIdx") //꼭 필요할까...? 객체명과 DB 컬럼명을 다르게 하고 싶은 경우, DB 컬럼명으로 설정할 이름을 name 속성으로 적는다.
     @GeneratedValue(strategy = GenerationType.IDENTITY) //pk 생성 규칙
-    private Long postId;
-    @Column(name = "userIdx")
-    private Long userId;
+    private Long postIdx;
+    private Long userIdx;
 
   /* //1:N일 때 외래키는 항상 N쪽에 존재
     @ManyToOne
@@ -38,22 +33,19 @@ public class Post {
     @Column(length = 30)
     private String category;
 
-    private LocalDateTime purchaseDate;
+    private String purchaseDate;
     private String purchasedAt;
 
-    private LocalDateTime  openedDate;
-    private LocalDateTime  shelfLife;
+    private String  openedDate;
+    private String  shelfLife;
 
-    private int expirationDate =15;
+    private String expirationDate;
 
     @Column(length = 20)
     private String storageMethod;
 
-    private int sharingPlace_x;
-
-    private int sharingPlace_y;
-
-    private String detailedLocation;
+    private String globalLocation; //기본주소
+    private String detailedLocation; //상세 주소
 
     private LocalDateTime  createdAt;
     private LocalDateTime  updatedAt;
@@ -62,11 +54,13 @@ public class Post {
     private String receiptImgUrl;
 
     private int seenNumber=0;
+    //TODO: 수정하기
+    private String globalLocation = "서대문구 대현동";
 
     @Builder //해당 클래스의 빌더 패턴 클래스 생성, 생성자 상단에 선언시 생성자에 포함된 필드만 빌더에 포함 //생성자 대신 사용
-    public Post(Long postId, Long userId, String title, String contents, String category, LocalDateTime purchaseDate, String purchasedAt, LocalDateTime openedDate, LocalDateTime shelfLife, int expirationDate, String storageMethod, int sharingPlace_x, int sharingPlace_y, String detailedLocation, LocalDateTime createdAt, LocalDateTime updatedAt, int totalHearts, String receiptImgUrl, int seenNumber) {
-        this.postId = postId;
-        this.userId = userId;
+    public Post(Long postIdx, Long userIdx, String title, String contents, String category, String purchaseDate, String purchasedAt, String openedDate, String shelfLife, String expirationDate, String storageMethod, String globalLocation, String detailedLocation, LocalDateTime createdAt, LocalDateTime updatedAt, int totalHearts, String receiptImgUrl, int seenNumber) {
+        this.postIdx = postIdx;
+        this.userIdx = userIdx;
         this.title = title;
         this.contents = contents;
         this.category = category;
@@ -76,8 +70,7 @@ public class Post {
         this.shelfLife = shelfLife;
         this.expirationDate = expirationDate;
         this.storageMethod = storageMethod;
-        this.sharingPlace_x = sharingPlace_x;
-        this.sharingPlace_y = sharingPlace_y;
+        this.globalLocation = globalLocation;
         this.detailedLocation = detailedLocation;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -85,5 +78,4 @@ public class Post {
         this.receiptImgUrl = receiptImgUrl;
         this.seenNumber = seenNumber;
     }
-
 }
