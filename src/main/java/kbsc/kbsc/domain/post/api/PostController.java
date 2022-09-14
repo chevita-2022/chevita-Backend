@@ -39,9 +39,12 @@ public class PostController {
     @PostMapping
     public ResponseEntity<? extends BasicResponse> addPost(@RequestBody PostDto postDto) throws IOException {
         Post resultPost = postService.createPostByUser(postDto);
+        log.info("1. postIdx={}", resultPost.getPostIdx());
         PostResult postResult = new PostResult(resultPost);
+        log.info("2. postIdx={}", postResult.getPostIdx());
         postResult.setImgUrls(postDto.getImgUrls());
         PostResult result = postResultService.saveImg(postResult);
+        log.info("3. postIdx={}", result.getPostIdx());
         return ResponseEntity.ok().body(new CommonResponse(result));
     }
 

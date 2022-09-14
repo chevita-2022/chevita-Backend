@@ -1,9 +1,6 @@
 package kbsc.kbsc.domain.postimage.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,14 +8,16 @@ import javax.persistence.*;
 @Getter
 @Setter
 @AllArgsConstructor
+@Builder
 @NoArgsConstructor
 @Table(name = "PostImage")
 public class PostImage {
 
     //autoincrement로 변경하기
     //TODO:값없다구 그래서 PostImage imgIdx 디폴트값 임시로 넣어둠
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    Long imgIdx;
+    Long postImgIdx;
 
     Long postIdx;
     String imgUrl;

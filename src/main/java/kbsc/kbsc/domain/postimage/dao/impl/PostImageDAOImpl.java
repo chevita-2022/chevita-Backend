@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Component
@@ -46,6 +47,14 @@ public class PostImageDAOImpl implements PostImageDAO {
     public String saveImgUrl(PostImage postImage) throws IOException {
         postImage.setImgUrl(s3Service.download(postImage.getImgUrl()));
         postImageRepository.save(postImage);
+        Optional<PostImage> findedPostImg = postImageRepository.findById(postImage.getPostImgIdx());
+        findedPostImg.ifPresent(selectdPostImg -> {
+            log.info("imgPostImgIdx={}", selectdPostImg.getPostImgIdx());
+            log.info("imgUrl={}", selectdPostImg.getImgUrl());
+            log.info("imgPostImgIdx={}", selectdPostImg.getPostImgIdx());
+            log.info("imgUrl={}", selectdPostImg.getImgUrl());
+        });
+
         return postImage.getImgUrl();
     }
     @Override
