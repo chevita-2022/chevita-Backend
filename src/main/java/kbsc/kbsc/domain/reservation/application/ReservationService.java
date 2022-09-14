@@ -2,6 +2,7 @@ package kbsc.kbsc.domain.reservation.application;
 import kbsc.kbsc.domain.reservation.dao.ReservationRepository;
 import kbsc.kbsc.domain.reservation.domain.Reservation;
 import kbsc.kbsc.domain.reservation.dto.ReservationDto;
+import kbsc.kbsc.domain.reservation.dto.UpdateReservationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +17,34 @@ public class ReservationService {
     @Transactional
     public Reservation createReservation(ReservationDto reservationDto){
         Reservation reserve = new Reservation();
+//
+//        reserve.setReserveIdx(reservationDto.getReserveIdx());
 
-        reserve.setReserveIdx(reserve.getReserveIdx());
-        reserve.setUserIdx(reserve.getUserIdx());
-        reserve.setPostIdx(reserve.getPostIdx());
-        reserve.setTakerIdx(reserve.getTakerIdx());
-        reserve.setConfirmedSharingTime(reserve.getConfirmedSharingTime());
-        reserve.setCreatedAt(reserve.getUpdatedAt());
-        reserve.setUpdatedAt(reserve.getUpdatedAt());
+        reserve.setPostIdx(reservationDto.getPostIdx());
+        reserve.setNanumiIdx(reservationDto.getNanumiIdx());
+        reserve.setTakerIdx(reservationDto.getTakerIdx());
+        reserve.setConfirmedSharingTime(reservationDto.getConfirmedSharingTime());
+        reserve.setNanumStatus(reservationDto.getNanumStatus());
+        reserve.setCreatedAt(reservationDto.getCreatedAt());
+        reserve.setUpdatedAt(reservationDto.getUpdatedAt());
 
         return reservationRepository.save(reserve);
     }
+
+    public Reservation getSingleReservation(Long postId) {
+        return reservationRepository.findByPostId(postId);
+    }
+
+    @Transactional
+    public Reservation updateReservation(UpdateReservationDto reservationDto) {
+        Long reservationId = reservationDto.getReserveIdx();
+        Reservation reservation = reservationRepository.findByReservationId(reservationId);
+        /*reservation.setUserIdx(reservationDto.getNanumiIdx());
+        reservation.setTakerIdx(reservationDto.getTakerIdx());
+        reservation.setPostIdx(reservationDto.getPostIdx());*/
+        reservation.setNanumStatus(reservationDto.getNanumStatus());
+        return reservationRepository.save(reservation);
+    }
+
 
 }

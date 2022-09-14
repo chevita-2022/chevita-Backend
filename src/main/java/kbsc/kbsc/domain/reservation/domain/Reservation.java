@@ -1,9 +1,6 @@
 package kbsc.kbsc.domain.reservation.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Setter
 public class Reservation {
@@ -20,10 +18,10 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reserveIdx;
 
-    //TODO: user entity 완성되면 연결하기
-    private Long userIdx;
+    private Long nanumiIdx;
     
     //TODO: post 매핑
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postIdx;
     
     private Long takerIdx; //채누미 idx
@@ -32,16 +30,4 @@ public class Reservation {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    @Builder
-
-    public Reservation(Long reserveIdx, Long userIdx, Long postIdx, Long takerIdx, String confirmedSharingTime, String nanumStatus, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.reserveIdx = reserveIdx;
-        this.userIdx = userIdx;
-        this.postIdx = postIdx;
-        this.takerIdx = takerIdx;
-        this.confirmedSharingTime = confirmedSharingTime;
-        this.nanumStatus = nanumStatus;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
 }
