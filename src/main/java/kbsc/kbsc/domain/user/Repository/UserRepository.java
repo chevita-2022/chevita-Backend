@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 //JpaRepository<Repository가 사용할 Entity, Entity에서 사용되는 PK>
 @Repository
 public interface UserRepository extends JpaRepository<Users, Long> {
-
 }

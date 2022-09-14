@@ -1,6 +1,7 @@
 package kbsc.kbsc.domain.user.api;
 
 import kbsc.kbsc.domain.post.domain.Post;
+import kbsc.kbsc.domain.post.domain.PostResult;
 import kbsc.kbsc.domain.user.dao.impl.UserDAOImpl;
 import kbsc.kbsc.domain.user.domain.Users;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,14 @@ public class UserController {
         return userDAO.updateInfo(userid, user);
     }
 
-    /*@GetMapping("/{userid}/nanum-history")
-    public List<Post> findNanumHistory(@PathVariable Long userid) {
+    //나눔기록 조회 예약 테이블 조회 -> 나눔완료된 postIdx 중 작성자 Idx == userId
+    @GetMapping("/{userid}/nanum-history")
+    public List<PostResult> findNanumHistory(@PathVariable Long userid) {
         return userDAO.findNanumHistory(userid);
-    }*/
+    }
+
+    @GetMapping("/{userid}/chaenum-history")
+    public List<PostResult> findChaenumHistory(@PathVariable Long userid) {
+        return userDAO.findChaenumiHistory(userid);
+    }
 }

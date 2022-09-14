@@ -27,6 +27,7 @@ public class Reservation {
     private Long takerIdx; //채누미 idx
     private String confirmedSharingTime; //확정된 나눔 시간
     private String nanumStatus; //나눔 상태 default = "not reserved"
+    //초기상태/예약요청/예약확정/나눔완료
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
