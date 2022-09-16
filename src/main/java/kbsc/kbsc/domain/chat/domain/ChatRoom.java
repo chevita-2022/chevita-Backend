@@ -38,16 +38,16 @@ public class ChatRoom {
     }
 
     public void handlerActions(WebSocketSession session, ChatMessage chatMessage, ChatService chatService) {
-        if(chatMessage.getType().equals(ChatMessage.MessageType.ENTER)) {
+        if(!sessions.contains(session)) {
             sessions.add(session);
             //TODO: 나눔 시간대 띄우면서 자동채팅으로 변경하기
             chatMessage.setMessage(chatMessage.getSender() + "님이 입장했습니다.");
         }
-        sendMessage(chatMessage, chatService);
+        sendMessage(chatMessage, chatService, session);
 
     }
-    private <T> void sendMessage(T message, ChatService chatService) {
+    private <T> void sendMessage(T message, ChatService chatService, WebSocketSession senderSession) {
         sessions.parallelStream()
-                .forEach(session -> chatService.sendMessage(session, message));
+                .forEach(session -> chatService.sendMessage(session, message, senderSession));
     }
 }

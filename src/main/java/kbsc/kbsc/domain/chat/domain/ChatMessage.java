@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -12,17 +13,13 @@ import java.sql.Timestamp;
 public class ChatMessage {
     //MessageType = ENTER 처음 채팅방에 들어오는 상태
     //MessageType = TALK 이미 session 에 연결되어있고 채팅중인 상태
-    public enum MessageType {
-        ENTER, TALK
-    }
 
     //@JsonIgnore
     private String messageId;
 
     //@JsonIgnore
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
-    private MessageType type;
     private String roomId;
     private Integer sender;
     private String message;

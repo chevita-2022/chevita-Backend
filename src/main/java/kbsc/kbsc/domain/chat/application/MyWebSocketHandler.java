@@ -13,6 +13,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Slf4j
@@ -33,8 +34,8 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
         //TODO: handleTextMessage 에 관련되지 않은 코드들이 너무 많음 -> 코드 리팩토링
         String messageId = UUID.randomUUID().toString();
         chatMessage.setMessageId(messageId);
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        chatMessage.setCreatedAt(timestamp);
+        LocalDateTime now = LocalDateTime.now();
+        chatMessage.setCreatedAt(now);
 
         ChatRoom chatRoom = chatService.findRoomById(chatMessage.getRoomId());
 
