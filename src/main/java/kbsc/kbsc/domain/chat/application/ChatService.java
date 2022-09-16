@@ -62,9 +62,10 @@ public class ChatService {
         return chatRoom;
     }
 
-    public <T> void sendMessage(WebSocketSession session, T message) {
+    public <T> void sendMessage(WebSocketSession session, T message, WebSocketSession senderSession) {
         try {
-            session.sendMessage(new TextMessage(objectMapper.writeValueAsString(message)));
+            if(session != senderSession)
+                session.sendMessage(new TextMessage(objectMapper.writeValueAsString(message)));
 
         }
         catch (IOException e) {
