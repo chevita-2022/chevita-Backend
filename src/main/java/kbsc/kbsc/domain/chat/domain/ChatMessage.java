@@ -22,5 +22,6 @@ public class ChatMessage {
 
     private String roomId;
     private Integer sender;
+    private Integer receiver;
     private String message;
 }
