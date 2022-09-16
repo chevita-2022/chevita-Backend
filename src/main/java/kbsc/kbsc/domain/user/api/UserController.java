@@ -4,6 +4,9 @@ import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.domain.PostResult;
 import kbsc.kbsc.domain.user.dao.impl.UserDAOImpl;
 import kbsc.kbsc.domain.user.domain.Users;
+import kbsc.kbsc.domain.user.dto.UserDto;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +14,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-//TODO: 데이터베이스 연결확인을 위한 임시 API 이므로 Service 클래스의 코드 작성 정리와 함께 api 수정해야함
+
+@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -25,9 +29,28 @@ public class UserController {
     }
     */
 
+    @GetMapping("/tmp/{userid}")
+    public Users getTmp(@PathVariable Long userid)
+    {
+        Users user = findUserByIdx(userid);
+        log.info("useridx = {}", user.getUserIdx());
+        log.info("usernickname = {}", user.getUserNickName());
+        log.info("useraddress = {}", user.getUserAddress());
+        log.info("useraddress = {}", user.getProfileImgUrl());
+        return user;
+    }
+    @PostMapping("/login")
+    public Long saveSocialLogin(@RequestBody Users user) throws IOException {
+        Long userIdx = 0L;
+        if(userDAO.isMember(user)) // 이미 멤버임
+            return userDAO.findByToken(user).getUserIdx();
+        else userIdx = userDAO.saveUser(user).getUserIdx();
+        return userIdx;
+    }
+
     @PostMapping
-    public Users saveUser(@RequestBody Users user) throws IOException {
-        return userDAO.saveUser(user);
+    public Users saveUser(@RequestBody UserDto userDto) throws IOException {
+        return userDAO.fillUserInfo(userDto);
     }
 
     @GetMapping("/{userid}")

@@ -13,6 +13,7 @@ import kbsc.kbsc.domain.s3.S3Service;
 import kbsc.kbsc.domain.user.Repository.UserRepository;
 import kbsc.kbsc.domain.user.dao.UserDAO;
 import kbsc.kbsc.domain.user.domain.Users;
+import kbsc.kbsc.domain.user.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,25 +48,44 @@ public class UserDAOImpl implements UserDAO {
         this.postResultService = postResultService;
     }
 
-    @Override
-    public Users saveUser(Users userEntity) throws IOException {
-        String imgUrl = s3Service.download(userEntity.getProfileImgUrl());
-        userEntity.setProfileImgUrl(imgUrl);
-        userEntity.setVital(67L);
+    public boolean isMember(Users user) {
+        Users findUser = findByToken(user);
+        if(findUser == null) return false;
+        else return true;
+    }
+
+    public Users fillUserInfo(UserDto userDto) throws IOException {
+        //useDto에는 유저 아이디, 유저 닉네임, 유저 주소, 유저 프로필이미지 있음
+        Users targetUser = findUserByIdx(userDto.getUserIdx());
+        String imgUrl = s3Service.download(userDto.getProfileImgUrl());
+        targetUser.setProfileImgUrl(imgUrl);
+        targetUser.setVital(67L);
         log.info("imgUrl={}", imgUrl);
-        Users user =userRepository.save(userEntity);
-        log.info("user userIdx = {}", user.getUserIdx());
-        userEntity.setUserIdx(user.getUserIdx());
+        targetUser.setUserAddress(userDto.getUserAddress());
+        targetUser.setUserNickName(userDto.getUserNickName());
 
         //저장된 값 확인하기
-        Optional<Users> findedUser = userRepository.findById(user.getUserIdx());
+        Optional<Users> findedUser = userRepository.findById(userDto.getUserIdx());
         findedUser.ifPresent(selectedUser ->
         {
             log.info("saved userIdx = {}", selectedUser.getUserIdx());
             log.info("saved userVital = {}", selectedUser.getVital());
 
         });
-        return user;
+        return targetUser;
+
+    }
+    public Users findByToken(Users user) {
+        List<Users> users = userRepository.findAll();
+        for (Users curUser: users) {
+            if(curUser.getToken() == user.getToken())
+                return curUser;
+        }
+        return null;
+    }
+    @Override
+    public Users saveUser(Users userEntity) throws IOException {
+        return userRepository.save(userEntity);
     }
 
     //나눔기록 조회 예약 테이블 조회 -> 나눔완료된 postIdx 중 작성자 Idx == userId
