@@ -2,6 +2,7 @@
 package kbsc.kbsc.domain.chat.domain;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import kbsc.kbsc.domain.chat.application.ChatService;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,9 +13,9 @@ import org.springframework.web.socket.WebSocketSession;
 import java.util.*;
 
 @Slf4j
+//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @Getter
 @Setter
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class ChatRoom {
     private String roomId;
 
@@ -22,7 +23,10 @@ public class ChatRoom {
     private String lastMessage;
     private Integer chaenumi;
     private Integer nanumi;
+
+    @JsonIgnore
     private Set<WebSocketSession> sessions = new HashSet<>();
+
     private List<ChatMessage> chatMessages = new ArrayList<>();
 
     @Builder

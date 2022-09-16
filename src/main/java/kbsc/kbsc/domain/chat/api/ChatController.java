@@ -4,6 +4,7 @@ package kbsc.kbsc.domain.chat.api;
 import kbsc.kbsc.domain.chat.application.ChatService;
 import kbsc.kbsc.domain.chat.domain.ChatMessage;
 import kbsc.kbsc.domain.chat.domain.ChatRoom;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@Getter
 @RequestMapping("/chat")
 public class ChatController {
 

@@ -4,6 +4,7 @@ package kbsc.kbsc.domain.chat.application;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kbsc.kbsc.domain.chat.domain.ChatMessage;
 import kbsc.kbsc.domain.chat.domain.ChatRoom;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import java.util.UUID;
 
 @Slf4j
 @Component
+@Getter
 @RequiredArgsConstructor
 public class MyWebSocketHandler extends TextWebSocketHandler {
 

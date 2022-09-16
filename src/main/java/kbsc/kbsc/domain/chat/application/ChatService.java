@@ -39,7 +39,7 @@ public class ChatService {
             }
             else log.info("userId={}", userId);
         }
-        return new ArrayList<>(findRooms);
+        return new ArrayList<ChatRoom>(findRooms);
     }
 
     public List<ChatMessage> findRoomMessages(String roomId) {
