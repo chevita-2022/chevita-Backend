@@ -26,10 +26,8 @@ public class Users {
     String userNickName;
     String userAddress;
     String profileImgUrl;
-    String introduction;
-    float vital;
+    Long vital;
     //TODO: vital 값 계산하는 부분 필요?
-    String userHashTag;
 
 
 }
