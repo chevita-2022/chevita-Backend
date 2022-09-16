@@ -9,7 +9,9 @@ import javax.persistence.Column;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Getter
 @Setter
 public class PostResult {/*
@@ -57,6 +59,8 @@ public class PostResult {/*
         this.seenNumber = post.getSeenNumber();
         this.imgUrls = new ArrayList<>();
         this.globalLocation = post.getGlobalLocation();
+        this.availableDates = new ArrayList<>();
+
         //Post 칼럼의 reserveIdx??
     }
 
@@ -82,6 +86,11 @@ public class PostResult {/*
 
     private int reserveIdx;
     List<String> imgUrls;
+
+    List<List<String>> availableDates; //나눔일자 = [[나눔일자, 나눔시간대], [나눔일자, 나눔시간대], [나눔일자, 나눔시간대]]
+
+
+
 
 
 

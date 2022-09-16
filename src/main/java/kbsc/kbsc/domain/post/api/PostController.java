@@ -39,13 +39,18 @@ public class PostController {
     @PostMapping
     public ResponseEntity<? extends BasicResponse> addPost(@RequestBody PostDto postDto) throws IOException {
         Post resultPost = postService.createPostByUser(postDto);
-        log.info("1. postIdx={}", resultPost.getPostIdx());
-        PostResult postResult = new PostResult(resultPost);
-        log.info("2. postIdx={}", postResult.getPostIdx());
-        postResult.setImgUrls(postDto.getImgUrls());
+
+        PostResult postResult = new PostResult(resultPost); // post 테이블 하나 만든거 복붙
+        postResult.setImgUrls(postDto.getImgUrls()); //postResult에 이미지 경로 생성
+        //가능한 시간대 리스트 생성
+        postResult.setAvailableDates(postDto.getSharingTimeZones());
+
+        //이미지 저장
         PostResult result = postResultService.saveImg(postResult);
-        log.info("3. postIdx={}", result.getPostIdx());
-        return ResponseEntity.ok().body(new CommonResponse(result));
+        //시간대 리스트 저장
+        PostResult resultWithTimeZone = postResultService.saveSharingTimeZone(result); //이미지까지 저장된 객체에 시간대 리스트 칼럼 추가
+
+        return ResponseEntity.ok().body(new CommonResponse(resultWithTimeZone));
     }
 
     @ApiOperation(value = "postId로 특정 게시글 조회", notes = "postId로 특정 게시글 조회")

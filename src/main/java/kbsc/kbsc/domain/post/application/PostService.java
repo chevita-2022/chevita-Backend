@@ -23,7 +23,7 @@ public class PostService {
     @Transactional
     public Post createPostByUser(PostDto postDto){ //TODO: userid 연결해야함
         Post newPost = new Post();
-//      newPost.setPostIdx(postDto.getPostId());
+
         newPost.setUserIdx(postDto.getUserId());
         newPost.setTitle(postDto.getTitle());
         newPost.setContents(postDto.getContent());
