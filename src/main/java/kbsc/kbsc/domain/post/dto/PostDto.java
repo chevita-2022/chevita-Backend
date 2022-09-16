@@ -32,4 +32,6 @@ public class PostDto {
     private String receiptImgUrl;
     private int seenNumber=0;
     private List<String> imgUrls;
+    private List<List<String>> sharingTimeZones;
+
 }

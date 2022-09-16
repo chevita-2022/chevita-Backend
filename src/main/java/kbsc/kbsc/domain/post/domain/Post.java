@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor //기본 생성자 자동 추가, public Post()와 같은 효과
 @Entity
 @Setter //사용하면 안되는데..
+@AllArgsConstructor
 public class Post {
     @Id //해당 테이블의 pk 값
     @GeneratedValue(strategy = GenerationType.IDENTITY) //pk 생성 규칙
@@ -57,25 +58,4 @@ public class Post {
     //TODO: 수정하기
 
 
-    @Builder //해당 클래스의 빌더 패턴 클래스 생성, 생성자 상단에 선언시 생성자에 포함된 필드만 빌더에 포함 //생성자 대신 사용
-    public Post(Long postIdx, Long userIdx, String title, String contents, String category, String purchaseDate, String purchasedAt, String openedDate, String shelfLife, String expirationDate, String storageMethod, String globalLocation, String detailedLocation, LocalDateTime createdAt, LocalDateTime updatedAt, int totalHearts, String receiptImgUrl, int seenNumber) {
-        this.postIdx = postIdx;
-        this.userIdx = userIdx;
-        this.title = title;
-        this.contents = contents;
-        this.category = category;
-        this.purchaseDate = purchaseDate;
-        this.purchasedAt = purchasedAt;
-        this.openedDate = openedDate;
-        this.shelfLife = shelfLife;
-        this.expirationDate = expirationDate;
-        this.storageMethod = storageMethod;
-        this.globalLocation = globalLocation;
-        this.detailedLocation = detailedLocation;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.totalHearts = totalHearts;
-        this.receiptImgUrl = receiptImgUrl;
-        this.seenNumber = seenNumber;
-    }
 }
