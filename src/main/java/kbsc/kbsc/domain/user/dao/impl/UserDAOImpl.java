@@ -51,10 +51,21 @@ public class UserDAOImpl implements UserDAO {
     public Users saveUser(Users userEntity) throws IOException {
         String imgUrl = s3Service.download(userEntity.getProfileImgUrl());
         userEntity.setProfileImgUrl(imgUrl);
+        userEntity.setVital(67L);
         log.info("imgUrl={}", imgUrl);
-        userRepository.save(userEntity);
+        Users user =userRepository.save(userEntity);
+        log.info("user userIdx = {}", user.getUserIdx());
+        userEntity.setUserIdx(user.getUserIdx());
 
-        return userEntity;
+        //저장된 값 확인하기
+        Optional<Users> findedUser = userRepository.findById(user.getUserIdx());
+        findedUser.ifPresent(selectedUser ->
+        {
+            log.info("saved userIdx = {}", selectedUser.getUserIdx());
+            log.info("saved userVital = {}", selectedUser.getVital());
+
+        });
+        return user;
     }
 
     //나눔기록 조회 예약 테이블 조회 -> 나눔완료된 postIdx 중 작성자 Idx == userId
@@ -116,8 +127,6 @@ public class UserDAOImpl implements UserDAO {
             selectUser.setUserNickName(user.getUserNickName());
             selectUser.setUserAddress(user.getUserAddress());
             selectUser.setProfileImgUrl(user.getProfileImgUrl());
-            selectUser.setIntroduction(user.getIntroduction());
-            selectUser.setUserHashTag(user.getUserHashTag());
 
             userRepository.save(selectUser);
         });
