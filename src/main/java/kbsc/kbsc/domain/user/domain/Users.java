@@ -22,12 +22,11 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
     Long userIdx;
-
     String userNickName;
     String userAddress;
     String profileImgUrl;
     Long vital;
-    //TODO: vital 값 계산하는 부분 필요?
+    String token;
 
 
 }

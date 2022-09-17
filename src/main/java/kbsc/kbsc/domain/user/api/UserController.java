@@ -1,9 +1,14 @@
 package kbsc.kbsc.domain.user.api;
 
+import kbsc.kbsc.domain.login.dto.UserCheckDto;
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.domain.PostResult;
 import kbsc.kbsc.domain.user.dao.impl.UserDAOImpl;
 import kbsc.kbsc.domain.user.domain.Users;
+import kbsc.kbsc.domain.user.dto.SocialUserDto;
+import kbsc.kbsc.domain.user.dto.UserDto;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,23 +16,36 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-//TODO: 데이터베이스 연결확인을 위한 임시 API 이므로 Service 클래스의 코드 작성 정리와 함께 api 수정해야함
+
+@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
     UserDAOImpl userDAO;
-    /*
-     @GetMapping("/room/{roomIdx}")
-    public List<ChatMessage> findRoomMessages(@PathVariable String roomIdx) {
-        return chatService.findRoomMessages(roomIdx);
+
+    @PostMapping("/login")
+    public UserCheckDto login(@RequestBody SocialUserDto socialUserDto) throws IOException {
+        UserCheckDto userCheckDto = new UserCheckDto();
+        Users findUser = userDAO.findByToken(socialUserDto);
+        if(findUser != null) {
+            log.info("findUser.getUserIdx={}", findUser.getUserIdx());
+            userCheckDto.setUserIdx(findUser.getUserIdx());
+            userCheckDto.setExistingUser(true);
+            return userCheckDto;
+        }
+        else {
+            Long userIdx = userDAO.joinIn(socialUserDto);
+            userCheckDto.setUserIdx(userIdx);
+            userCheckDto.setExistingUser(false);
+            return userCheckDto;
+        }
     }
-    */
 
     @PostMapping
-    public Users saveUser(@RequestBody Users user) throws IOException {
-        return userDAO.saveUser(user);
+    public Users saveUser(@RequestBody UserDto userDto) throws IOException {
+        return userDAO.fillUserInfo(userDto);
     }
 
     @GetMapping("/{userid}")
