@@ -25,8 +25,6 @@ public class ReservationService {
         reserve.setTakerIdx(reservationDto.getTakerIdx());
         reserve.setConfirmedSharingTime(reservationDto.getConfirmedSharingTime());
         reserve.setNanumStatus(reservationDto.getNanumStatus());
-        reserve.setCreatedAt(reservationDto.getCreatedAt());
-        reserve.setUpdatedAt(reservationDto.getUpdatedAt());
 
         return reservationRepository.save(reserve);
     }

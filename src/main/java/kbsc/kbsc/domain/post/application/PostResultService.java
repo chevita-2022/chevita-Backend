@@ -34,32 +34,6 @@ public class PostResultService {
         this.sharingTimeZoneRepository = sharingTimeZoneRepository;
     }
 
-
-
-
-    /*
-    *
-    * Optional<Users> updateUser = userRepository.findById(targetIdx);
-        updateUser.ifPresent(selectUser->{
-            selectUser.setUserNickName(user.getUserNickName());
-            selectUser.setUserAddress(user.getUserAddress());
-            selectUser.setProfileImgUrl(user.getProfileImgUrl());
-            selectUser.setIntroduction(user.getIntroduction());
-            selectUser.setUserHashTag(user.getUserHashTag());
-
-            userRepository.save(selectUser);
-        });*/
-    /*
-    public PostResult updateImg(PostResult postResult) throws IOException {
-        List<String> urls = postResult.getImgUrls();
-        for (PostImage postImage: postImageRepository.findAll()) {
-            if(postResult.getPostIdx() == postImage.getPostIdx())
-            {
-                postImage.setImgUrl(postImageDAO.updateImgUrl(postImage));
-            }
-        }
-
-    }*/
     public PostResult saveImg(PostResult postResult) throws IOException {
             Long postIdx = postResult.getPostIdx();
             log.info("postIdx={}", postIdx);//여기 null 찍힘
@@ -81,38 +55,43 @@ public class PostResultService {
     public PostResult saveSharingTimeZone(PostResult postResult) throws IOException{ //이미지까지 저장된 result를 받아옴
             Long postIdx = postResult.getPostIdx(); //post id 찾기
             log.info("postIdx={}", postIdx);
-             List<List<String>> availableDates = postResult.getAvailableDates(); //List<List<String>> availableDates;
-/*가져온거를  짤라서 디비에 저장할거야
-availableDate = [나눔일자, 나눔시간대] = [availableDate.get(0),
-availableDates = [[나눔일자, 나눔시간대], [나눔일자, 나눔시간대], [나눔일자, 나눔시간대]] = [availableDate.get(0),
-        */
-            for(List<String> availableDate: availableDates){ //[나눔일자, 나눔시간대]
-                log.info("List<String> availableDate = {}", availableDate );
+             List<List<String>> availableTimezone = postResult.getSharingTimeZones(); //List<List<String>> availableDates;
+            /*가져온거를  짤라서 디비에 저장할거야
+            availableDate = [나눔일자, 나눔시간대] = [availableDate.get(0),
+            availableDates = [[나눔일자, 나눔시간대], [나눔일자, 나눔시간대], [나눔일자, 나눔시간대]] = [availableDate.get(0),
+            */
+            for(List<String> availableDate: availableTimezone){ //[나눔일자, 나눔시간대]
                 SharingTimeZone sharingTimeZone = SharingTimeZone.builder()// sharingTimeZone = [나눔일자, 나눔시간대]
-                        .postIdx(postIdx) //TODO: postIdx find 연결
+                        .postIdx(postIdx)
                         .dateZone(availableDate.get(0)) //나눔일자
                         .timeZone(availableDate.get(1)) //나눔시간대
                         .build();
-                log.info("sharing get datezone={}", sharingTimeZone.getDateZone());
-                log.info("sharing get timezone={}", sharingTimeZone.getTimeZone());
                 sharingTimeZoneDaoImpl.saveSharingTimeZone(sharingTimeZone); // Long sharingTimeZoneIdx; Long postIdx; String dateZone;String timeZone;
 
             }
-            postResult.setAvailableDates(availableDates);
-            log.info("after setting postResult ={}", postResult.getAvailableDates());
+            postResult.setSharingTimeZones(availableTimezone);
+            log.info("after setting postResult ={}", postResult.getSharingTimeZones());
             return postResult;
 
     }
 
+    //TODO: 나눔시간대까지 저장해서 리턴하기
     public PostResult findPostResult(Post post)
     {
-        System.out.println("findPostResult");
         PostResult postResult = new PostResult(post);
-        postResult.setImgUrls(postImageDAO.findByPostIdx(post.getPostIdx()));
-        //postResult.setSharingTimeZone(sharingTimeZoneDaoImpl.findByPostIdx(post.getPostIdx()));
+        postResult.setImgUrls(postImageDAO.findByPostIdx(post.getPostIdx())); //그냥 리스트
 
-        //여기서부터 빈리스트임
-        log.info("imgurls={}", postResult.getImgUrls());
+        log.info("findPostResult before setting sharingtimezones= {}", postResult);
+        
+        //나눔시간대 설정
+        //postResult.setSharingTimeZones(List<List<String>> sharingTimeZones);
+        //post idx로 해당 post의 나눔시간대만 가져오기
+        //postResult.sharingtimezone설정(postidx로 shaingTimeZone의 목록중에서 postidx가 일히하는 것을 add한다.
+        postResult.setSharingTimeZones(sharingTimeZoneDaoImpl.findByPostIdx(post.getPostIdx()));
+
+        log.info("findPostResult after setting sharingtimezones = {}", postResult);
+
+
         return postResult;
     }
 
