@@ -1,9 +1,11 @@
+/*
 package kbsc.kbsc.domain.user.api;
 
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.domain.PostResult;
 import kbsc.kbsc.domain.user.dao.impl.UserDAOImpl;
 import kbsc.kbsc.domain.user.domain.Users;
+import kbsc.kbsc.domain.user.dto.SocialUserDto;
 import kbsc.kbsc.domain.user.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
@@ -22,13 +24,16 @@ public class UserController {
 
     @Autowired
     UserDAOImpl userDAO;
-    /*
+    */
+/*
      @GetMapping("/room/{roomIdx}")
     public List<ChatMessage> findRoomMessages(@PathVariable String roomIdx) {
         return chatService.findRoomMessages(roomIdx);
     }
-    */
+    *//*
 
+*/
+/*
     @GetMapping("/tmp/{userid}")
     public Users getTmp(@PathVariable Long userid)
     {
@@ -38,11 +43,12 @@ public class UserController {
         log.info("useraddress = {}", user.getUserAddress());
         log.info("useraddress = {}", user.getProfileImgUrl());
         return user;
-    }
+    }*//*
+
     @PostMapping("/login")
-    public Long saveSocialLogin(@RequestBody Users user) throws IOException {
+    public Long login(@RequestBody SocialUserDto socialUserDto) throws IOException {
         Long userIdx = 0L;
-        if(userDAO.isMember(user)) // 이미 멤버임
+        if(userDAO.isMember(socialUserDto)) // 이미 멤버임
             return userDAO.findByToken(user).getUserIdx();
         else userIdx = userDAO.saveUser(user).getUserIdx();
         return userIdx;
@@ -73,4 +79,4 @@ public class UserController {
     public List<PostResult> findChaenumHistory(@PathVariable Long userid) {
         return userDAO.findChaenumiHistory(userid);
     }
-}
+}*/

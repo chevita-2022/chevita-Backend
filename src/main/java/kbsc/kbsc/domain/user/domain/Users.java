@@ -28,7 +28,6 @@ public class Users {
     String profileImgUrl;
     Long vital;
     String token;
-    //TODO: vital 값 계산하는 부분 필요?
 
 
 }
