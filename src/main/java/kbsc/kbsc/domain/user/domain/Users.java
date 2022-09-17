@@ -22,7 +22,6 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
     Long userIdx;
-
     String userNickName;
     String userAddress;
     String profileImgUrl;

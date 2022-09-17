@@ -1,6 +1,6 @@
-/*
 package kbsc.kbsc.domain.user.api;
 
+import kbsc.kbsc.domain.login.dto.UserCheckDto;
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.domain.PostResult;
 import kbsc.kbsc.domain.user.dao.impl.UserDAOImpl;
@@ -24,34 +24,23 @@ public class UserController {
 
     @Autowired
     UserDAOImpl userDAO;
-    */
-/*
-     @GetMapping("/room/{roomIdx}")
-    public List<ChatMessage> findRoomMessages(@PathVariable String roomIdx) {
-        return chatService.findRoomMessages(roomIdx);
-    }
-    *//*
-
-*/
-/*
-    @GetMapping("/tmp/{userid}")
-    public Users getTmp(@PathVariable Long userid)
-    {
-        Users user = findUserByIdx(userid);
-        log.info("useridx = {}", user.getUserIdx());
-        log.info("usernickname = {}", user.getUserNickName());
-        log.info("useraddress = {}", user.getUserAddress());
-        log.info("useraddress = {}", user.getProfileImgUrl());
-        return user;
-    }*//*
 
     @PostMapping("/login")
-    public Long login(@RequestBody SocialUserDto socialUserDto) throws IOException {
-        Long userIdx = 0L;
-        if(userDAO.isMember(socialUserDto)) // 이미 멤버임
-            return userDAO.findByToken(user).getUserIdx();
-        else userIdx = userDAO.saveUser(user).getUserIdx();
-        return userIdx;
+    public UserCheckDto login(@RequestBody SocialUserDto socialUserDto) throws IOException {
+        UserCheckDto userCheckDto = new UserCheckDto();
+        Users findUser = userDAO.findByToken(socialUserDto);
+        if(findUser != null) {
+            log.info("findUser.getUserIdx={}", findUser.getUserIdx());
+            userCheckDto.setUserIdx(findUser.getUserIdx());
+            userCheckDto.setExistingUser(true);
+            return userCheckDto;
+        }
+        else {
+            Long userIdx = userDAO.joinIn(socialUserDto);
+            userCheckDto.setUserIdx(userIdx);
+            userCheckDto.setExistingUser(false);
+            return userCheckDto;
+        }
     }
 
     @PostMapping
@@ -79,4 +68,4 @@ public class UserController {
     public List<PostResult> findChaenumHistory(@PathVariable Long userid) {
         return userDAO.findChaenumiHistory(userid);
     }
-}*/
+}

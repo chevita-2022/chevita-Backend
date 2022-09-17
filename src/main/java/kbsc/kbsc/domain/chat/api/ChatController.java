@@ -18,6 +18,7 @@ public class ChatController {
 
     private final ChatService chatService;
 
+
     @PostMapping("/{userId}/{otherId}")
     public ChatRoom createRoom(@PathVariable("userId") Integer userId, @PathVariable("otherId") Integer otherId) {
         //일단 이렇게 받기로는 했는데 방을 만드는거 자체를 채누미 쪽에서 요청하는거라서

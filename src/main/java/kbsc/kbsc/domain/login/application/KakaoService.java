@@ -1,3 +1,4 @@
+/*
 package kbsc.kbsc.domain.login.application;
 
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -143,4 +144,4 @@ public class KakaoService {
     }
 
 
-}
+}*/

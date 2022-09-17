@@ -13,6 +13,7 @@ import kbsc.kbsc.domain.s3.S3Service;
 import kbsc.kbsc.domain.user.Repository.UserRepository;
 import kbsc.kbsc.domain.user.dao.UserDAO;
 import kbsc.kbsc.domain.user.domain.Users;
+import kbsc.kbsc.domain.user.dto.SocialUserDto;
 import kbsc.kbsc.domain.user.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,11 +49,6 @@ public class UserDAOImpl implements UserDAO {
         this.postResultService = postResultService;
     }
 
-    public boolean isMember(Users user) {
-        Users findUser = findByToken(user);
-        if(findUser == null) return false;
-        else return true;
-    }
 
     public Users fillUserInfo(UserDto userDto) throws IOException {
         //useDto에는 유저 아이디, 유저 닉네임, 유저 주소, 유저 프로필이미지 있음
@@ -64,21 +60,19 @@ public class UserDAOImpl implements UserDAO {
         targetUser.setUserAddress(userDto.getUserAddress());
         targetUser.setUserNickName(userDto.getUserNickName());
 
-        //저장된 값 확인하기
-        Optional<Users> findedUser = userRepository.findById(userDto.getUserIdx());
-        findedUser.ifPresent(selectedUser ->
-        {
-            log.info("saved userIdx = {}", selectedUser.getUserIdx());
-            log.info("saved userVital = {}", selectedUser.getVital());
 
-        });
-        return targetUser;
+
+        //저장된 값 확인하기
+        Users saveduser = userRepository.save(targetUser);
+        return saveduser;
 
     }
-    public Users findByToken(Users user) {
+    public Users findByToken(SocialUserDto socialUserDto) {
         List<Users> users = userRepository.findAll();
+
         for (Users curUser: users) {
-            if(curUser.getToken() == user.getToken())
+            log.info("curUser.token={}, curUser.userIdx={}", curUser.getToken(), curUser.getUserIdx());
+            if(curUser.getToken() == socialUserDto.getToken())
                 return curUser;
         }
         return null;
@@ -86,6 +80,14 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Users saveUser(Users userEntity) throws IOException {
         return userRepository.save(userEntity);
+    }
+
+    public Long joinIn(SocialUserDto socialUserDto) throws IOException {
+        Users users = new Users();
+        users.setToken(socialUserDto.getToken());
+        Users saveUsers = saveUser(users);
+        return saveUsers.getUserIdx();
+
     }
 
     //나눔기록 조회 예약 테이블 조회 -> 나눔완료된 postIdx 중 작성자 Idx == userId
