@@ -1,10 +1,13 @@
 package kbsc.kbsc.domain.reservation.dao;
 
 import kbsc.kbsc.domain.reservation.domain.Reservation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
+@Slf4j
 @Repository
 public class ReservationRepository {
     private final EntityManager em;
@@ -37,5 +40,11 @@ public class ReservationRepository {
         return reservation;
     }
 
-    //reservation Id
+    public List<Reservation> findAll() {
+        List<Reservation> list = em.createQuery("select m from Reservation m", Reservation.class)
+                .getResultList();
+        log.info("list.get(0))={}", list.get(0));
+        return em.createQuery("select m from Reservation m", Reservation.class)
+                .getResultList();
+    }
 }
