@@ -21,17 +21,26 @@ public class SharingTimeZoneDaoImpl implements SharingTimeZoneDao {
         this.sharingTimeZoneRepository = sharingTimeZoneRepository;
     }
 
-    @Override
-    public List<Integer> findByPostIdx(Long postIdx) {
-        List<List<Integer>> availableTimezone = new ArrayList<>();
+    @Override //postIdx로
+    public List<List<String>> findByPostIdx(Long postIdx) {
+        List<List<String>> availableTimezone = new ArrayList<>();
+        /*sharingtimezone :
+        Long sharingTimeZoneIdx;
+        Long postIdx;
+        String dateZone;
+        String timeZone;*/
 
         for(SharingTimeZone sharingTimeZone: sharingTimeZoneRepository.findAll()){
             if(sharingTimeZone.getPostIdx() == postIdx){
-                //availableTimezone.add()
+                List<String> dateTimePair = new ArrayList<>();
+                dateTimePair.add(sharingTimeZone.getDateZone());
+                dateTimePair.add(sharingTimeZone.getTimeZone());
+
+                availableTimezone.add(dateTimePair);
             }
         }
 
-        return null;
+        return availableTimezone;
     }
 
     public void saveSharingTimeZone(SharingTimeZone sharingTimeZone)throws IOException {

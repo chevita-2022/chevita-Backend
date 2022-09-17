@@ -58,10 +58,8 @@ public class PostController {
     public ResponseEntity<? extends BasicResponse> getPostByPostId(@PathVariable Long postid) {
         Post resultPost = postService.getSinglePost(postid); //post id로 게시글 하나 찾아오기
 
-        //이미지까지 저장된 것 불러오기
+        //이미지, 나눔시간대 저장된 것 불러오기
         PostResult postResult = postResultService.findPostResult(resultPost);
-        /*//나눔시간대 저장된 것 불러오기
-        PostResult postResultWithSharingTimeZone = postResultService.findPostResult()*/
 
         return ResponseEntity.ok().body(new CommonResponse(postResult));
     }
