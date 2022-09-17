@@ -14,28 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 @Setter
-public class PostResult {/*
-    public PostResult(Post post) {
-        this.postIdx = post.getPostIdx();
-        this.userIdx = userIdx;
-        this.title = title;
-        this.contents = contents;
-        this.category = category;
-        this.purchaseDate = purchaseDate;
-        this.purchasedAt = purchasedAt;
-        this.openedDate = openedDate;
-        this.shelfLife = shelfLife;
-        this.expirationDate = expirationDate;
-        this.storageMethod = storageMethod;
-        this.globalLocation = globalLocation;
-        this.detailedLocation = detailedLocation;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.totalHearts = totalHearts;
-        this.receiptImgUrl = receiptImgUrl;
-        this.seenNumber = seenNumber;
-        this.imgUrls = new ArrayList<>();
-    }*/
+public class PostResult {
 
     public PostResult(Post post) {
         this.postIdx = post.getPostIdx();
@@ -55,11 +34,12 @@ public class PostResult {/*
         this.createdAt = post.getCreatedAt();
         this.updatedAt = post.getUpdatedAt();
         this.totalHearts = post.getTotalHearts();
-        this.receiptImgUrl = post.getReceiptImgUrl();
+        this.isCertificatedReceipt = post.isCertificatedReceipt();
         this.seenNumber = post.getSeenNumber();
         this.imgUrls = new ArrayList<>();
         this.globalLocation = post.getGlobalLocation();
-        this.availableDates = new ArrayList<>();
+        this.sharingTimeZones = new ArrayList<>();
+        this.nanumStatus = post.getNanumStatus();
 
         //Post 칼럼의 reserveIdx??
     }
@@ -81,13 +61,15 @@ public class PostResult {/*
     private LocalDateTime  createdAt;
     private LocalDateTime  updatedAt;
     private int totalHearts=0;
-    private String receiptImgUrl;
+    private boolean isCertificatedReceipt;
     private int seenNumber=0;
 
     private int reserveIdx;
+    private String nanumStatus;
     List<String> imgUrls;
 
-    List<List<String>> availableDates; //나눔일자 = [[나눔일자, 나눔시간대], [나눔일자, 나눔시간대], [나눔일자, 나눔시간대]]
+    List<List<String>> sharingTimeZones; //나눔일자 = [[나눔일자, 나눔시간대], [나눔일자, 나눔시간대], [나눔일자, 나눔시간대]]
+
 
 
 

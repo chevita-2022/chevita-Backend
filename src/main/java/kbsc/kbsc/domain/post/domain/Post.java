@@ -52,10 +52,11 @@ public class Post {
     private LocalDateTime  updatedAt;
 
     private int totalHearts=0;
-    private String receiptImgUrl;
+    private boolean isCertificatedReceipt;
 
     private int seenNumber=0;
-    //TODO: 수정하기
 
+    //나눔상태
+    private String nanumStatus;
 
 }
