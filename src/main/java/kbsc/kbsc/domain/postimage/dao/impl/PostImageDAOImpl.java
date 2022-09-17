@@ -61,12 +61,9 @@ public class PostImageDAOImpl implements PostImageDAO {
     public List<String> findByPostIdx(Long postIdx) {
         List<String> imgUrls = new ArrayList<>();
         for (PostImage postImg : postImageRepository.findAll()) {
-            log.info("postImg={}", postImg);
-            log.info("postImg.postIdx={}", postImg.getPostIdx());
             if(postImg.getPostIdx() == postIdx)
             {
                 imgUrls.add(postImg.getImgUrl());
-                log.info("imgUrls={}", imgUrls);
             }
         }
         return new ArrayList<>(imgUrls);

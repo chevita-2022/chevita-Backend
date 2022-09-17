@@ -29,9 +29,11 @@ public class PostDto {
     private LocalDateTime  createdAt;
     private LocalDateTime  updatedAt;
     private int totalHearts=0;
-    private String receiptImgUrl;
+    private boolean isCertificatedReceipt;
     private int seenNumber=0;
     private List<String> imgUrls;
     private List<List<String>> sharingTimeZones;
+
+    private String nanumStatus ="예약 없음"; //나눔상태
 
 }

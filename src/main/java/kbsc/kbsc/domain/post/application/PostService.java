@@ -41,8 +41,9 @@ public class PostService {
         newPost.setCreatedAt(postDto.getCreatedAt());
         newPost.setUpdatedAt(postDto.getUpdatedAt());
         newPost.setTotalHearts(postDto.getTotalHearts());
-        newPost.setReceiptImgUrl(postDto.getReceiptImgUrl());
+        newPost.setCertificatedReceipt(postDto.isCertificatedReceipt());
         newPost.setSeenNumber(postDto.getSeenNumber());
+        newPost.setNanumStatus(postDto.getNanumStatus());
         return postRepository.save(newPost);
     }
 
@@ -76,8 +77,9 @@ public class PostService {
         post.setStorageMethod(postDto.getStorageMethod());
         post.setDetailedLocation(postDto.getDetailedLocation());
         post.setTotalHearts(postDto.getTotalHearts());
-        post.setReceiptImgUrl(postDto.getReceiptImgUrl());
+        post.setCertificatedReceipt(postDto.isCertificatedReceipt());
         post.setSeenNumber(postDto.getSeenNumber());
+        post.setNanumStatus(postDto.getNanumStatus());
 
         post.setUpdatedAt(date);
         return postRepository.save(post);

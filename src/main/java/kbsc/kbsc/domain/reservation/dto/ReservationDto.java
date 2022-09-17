@@ -19,6 +19,5 @@ public class ReservationDto {
 
     private String confirmedSharingTime = "기타 시간대"; //default: 기타 시간대 확정된 나눔 시간
     private String nanumStatus= "not reserved"; //나눔 상태 default = "not reserved"
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+
 }

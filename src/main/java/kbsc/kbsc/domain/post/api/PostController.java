@@ -43,32 +43,37 @@ public class PostController {
         PostResult postResult = new PostResult(resultPost); // post 테이블 하나 만든거 복붙
         postResult.setImgUrls(postDto.getImgUrls()); //postResult에 이미지 경로 생성
         //가능한 시간대 리스트 생성
-        postResult.setAvailableDates(postDto.getSharingTimeZones());
+        postResult.setSharingTimeZones(postDto.getSharingTimeZones());
 
         //이미지 저장
         PostResult result = postResultService.saveImg(postResult);
         //시간대 리스트 저장
-        PostResult resultWithTimeZone = postResultService.saveSharingTimeZone(result); //이미지까지 저장된 객체에 시간대 리스트 칼럼 추가
+        PostResult resultWithTimeZone = postResultService.saveSharingTimeZone(result);
 
         return ResponseEntity.ok().body(new CommonResponse(resultWithTimeZone));
     }
 
     @ApiOperation(value = "postId로 특정 게시글 조회", notes = "postId로 특정 게시글 조회")
     @GetMapping("/{postid}")
-    public ResponseEntity<? extends BasicResponse> getPostByPostId(@PathVariable Long postid){
-        Post resultPost = postService.getSinglePost(postid);
+    public ResponseEntity<? extends BasicResponse> getPostByPostId(@PathVariable Long postid) {
+        Post resultPost = postService.getSinglePost(postid); //post id로 게시글 하나 찾아오기
+
+        //이미지까지 저장된 것 불러오기
         PostResult postResult = postResultService.findPostResult(resultPost);
+        /*//나눔시간대 저장된 것 불러오기
+        PostResult postResultWithSharingTimeZone = postResultService.findPostResult()*/
+
         return ResponseEntity.ok().body(new CommonResponse(postResult));
     }
 
     @ApiOperation(value = "게시글 목록 조회", notes = "게시글 목록 조회")
     @GetMapping()
-    public ResponseEntity<? extends BasicResponse> getAllPostList(){
+    public ResponseEntity<? extends BasicResponse> getAllPostList() {
         List<Post> postList = postService.getAllPost();
-        if(postList.size() == 0)
+        if (postList.size() == 0)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("게시글이 존재하지 않습니다."));
         List<PostResult> postResults = new ArrayList<>();
-        for (Post post: postList) {
+        for (Post post : postList) {
             PostResult postResult = postResultService.findPostResult(post);
             postResults.add(postResult);
         }
@@ -83,68 +88,5 @@ public class PostController {
         return ResponseEntity.ok().body(new CommonResponse(resultPost));
 
     }
-   /* @ApiOperation(value = "나눔 상태 변경", notes = "나눔 상태 변경")
-    @PatchMapping("/{postId}/reservation")
-    public ResponseEntity<? extends BasicResponse> updateNanumStatus(@PathVariable Long postIdx, @RequestBody ReservationDto reservationDto){
-        Reservation resultReservation = reservationService.updateStatus(reservationDto);
-    }
-*/
-
-/*    @ApiOperation(value = "특정 유저의 게시글 조회", notes = "특정 유저의 게시글 조회")
-    @GetMapping("/{userId}")
-    public ResponseEntity<? extends BasicResponse> searchByUserId(@PathVariable ("user-id") Long userId){
-        List<Post> postList = postService.searchPostsByUserId(userId);
-        if (postList.size()==0)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("존재하는 게시글이 없습니다"));
-        return ResponseEntity.ok().body(new CommonResponse(postList));
-
-    }*/
-
 }
-    /*
-
-    @ApiOperation(value = "나눔 상태 변경", notes = "나눔 상태 변경")
-    @PatchMapping("/{postId}/reservation")
-    public Long updateNanumStatus(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
-        return postService.update(id, requestDto);
-    }
-    @ApiOperation(value = "나눔 예약 요청", notes = "나눔 예약 요청")
-    @PostMapping("/{postId}/reservation")
-    public Long requestNanumReservation(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
-        return postService.update(id, requestDto);
-    }
-
-    @ApiOperation(value = "나눔 예약 정보 조회", notes = "나눔 예약 정보 조회")
-    @GetMapping("/{postId}/reservation")
-    public Long getNanumReservationInfo(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
-        return postService.update(id, requestDto);
-    }
-
-    @ApiOperation(value = "나눔 후기 등록", notes = "나눔 후기 등록")
-    @GetMapping("/{postId}/review/nanum")
-    public Long addNanumReview(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
-        return postService.update(id, requestDto);
-    }
-    @ApiOperation(value = "채눔 후기 등록", notes = "채눔 후기 등록")
-    @GetMapping("/{postId}/review/chanum")
-    public Long addChanumReview(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto){
-        return postService.update(id, requestDto);
-    }
-
-    /*@ApiOperation(value="특정 게시글 조회", notes = "특정 게시글을 조회합니다.")
-    @GetMapping("/{postId}")
-    //서버가 http응답의 바디뿐만 아니라 status나 header를 조작해야 하는 경우 @ResponseDTO가 아닌 @ResponseEntity를 사용한다.
-    public ResponseEntity<?> getDetailPost(@PathVariable Long postId){
-        return ResponseEntity.ok(
-                ResponseDto.create( //ResponseDto(string msg, T dto) 객체 생성
-                    PostConstants.EPostResponseMessage.GET_DETAIL_POST_SUCCESS.getMessage(),
-                    this.postService.getDetailPost(postId)));
-    }*/
-
-//    @GetMapping("/dto")
-//    public PostDto PostDto(@RequestParam("name") String name,
-//                           @RequestParam("amount") int amount) {
-//        return new PostDto(name, amount);
-//    }
-
 

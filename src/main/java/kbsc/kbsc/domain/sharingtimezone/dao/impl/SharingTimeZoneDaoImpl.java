@@ -1,6 +1,8 @@
 package kbsc.kbsc.domain.sharingtimezone.dao.impl;
 
 import io.swagger.models.auth.In;
+import kbsc.kbsc.domain.post.domain.Post;
+import kbsc.kbsc.domain.post.domain.PostResult;
 import kbsc.kbsc.domain.sharingtimezone.dao.SharingTimeZoneDao;
 import kbsc.kbsc.domain.sharingtimezone.domain.SharingTimeZone;
 import kbsc.kbsc.domain.sharingtimezone.repository.SharingTimeZoneRepository;
