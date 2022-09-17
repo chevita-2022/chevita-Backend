@@ -72,7 +72,7 @@ public class UserDAOImpl implements UserDAO {
 
         for (Users curUser: users) {
             log.info("curUser.token={}, curUser.userIdx={}", curUser.getToken(), curUser.getUserIdx());
-            if(curUser.getToken() == socialUserDto.getToken())
+            if(curUser.getToken().equals(socialUserDto.getToken()))
                 return curUser;
         }
         return null;
@@ -94,8 +94,10 @@ public class UserDAOImpl implements UserDAO {
     public List<PostResult> findNanumHistory(Long userId) {
         List<PostResult> postResults = new ArrayList<>();
         List<Reservation> reservations = reservationJpaRepository.findAll();
+
         for (Reservation reservation: reservations) {
-            if(reservation.getNanumStatus() == "나눔완료" && reservation.getNanumiIdx() == userId)
+            log.info("reservation : {}", reservation.getPostIdx());
+            if(reservation.getNanumStatus().equals("나눔완료") && reservation.getNanumiIdx() == userId)
             {
                 log.info("nanum completed={}", reservation);
                 Optional<Post> post = postJpaRepository.findById(reservation.getPostIdx());
@@ -115,7 +117,7 @@ public class UserDAOImpl implements UserDAO {
         List<PostResult> postResults = new ArrayList<>();
         List<Reservation> reservations = reservationJpaRepository.findAll();
         for (Reservation reservation: reservations) {
-            if(reservation.getNanumStatus() == "나눔완료" && reservation.getTakerIdx() == userId)
+            if(reservation.getNanumStatus().equals("나눔완료") && reservation.getTakerIdx() == userId)
             {
                 log.info("nanum completed={}", reservation);
                 Optional<Post> post = postJpaRepository.findById(reservation.getPostIdx());
