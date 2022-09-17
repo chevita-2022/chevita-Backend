@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -32,7 +33,9 @@ public class ReservationService {
     public Reservation getSingleReservation(Long postId) {
         return reservationRepository.findByPostId(postId);
     }
-
+    public List<Reservation> findAllReservation() {
+        return reservationRepository.findAll();
+    }
     @Transactional
     public Reservation updateReservation(UpdateReservationDto reservationDto) {
         Long reservationId = reservationDto.getReserveIdx();
