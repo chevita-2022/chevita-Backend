@@ -30,7 +30,7 @@ public class NanumingService {
         List<Reservation> reservations = reservationService.findAllReservation();
         List<NanumingDto> nanumings = new ArrayList<>();
         for (Reservation reservation: reservations) {
-            if(reservation.getReserveIdx() == userIdx || reservation.getNanumiIdx() == userIdx)
+            if(reservation.getTakerIdx() == userIdx || reservation.getNanumiIdx() == userIdx)
             {
                 NanumingDto nanuming = new NanumingDto();
                 nanuming.setProfileUrl(nanumingDAO.getUserNickName(userIdx));
