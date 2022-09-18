@@ -12,13 +12,15 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "heartedPost")
-public class heartedPost {
+@Table(name = "HeartedPost")
+public class HeartedPost {
 
     @Id
     private Long heartedIdx;
-    private Long userIdx;
+
     private Long postIdx;
+    private Long userIdx;
+
 
 
 }

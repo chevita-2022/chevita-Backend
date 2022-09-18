@@ -50,7 +50,7 @@ public class UserDAOImpl implements UserDAO {
         //useDto에는 토큰, 유저 닉네임, 유저 주소, 유저 프로필이미지 있음
        Users targetUser = new Users();
        targetUser.setToken(userDto.getToken());
-
+       
        String imgUrl = s3Service.download(userDto.getProfileImgUrl());
        targetUser.setProfileImgUrl(imgUrl);
        targetUser.setVital(67L);

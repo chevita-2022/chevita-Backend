@@ -1,9 +1,7 @@
 package kbsc.kbsc.domain.heartedPost.api;
 
 import kbsc.kbsc.domain.heartedPost.application.HeartedPostService;
-import kbsc.kbsc.domain.heartedPost.domain.heartedPost;
-import kbsc.kbsc.domain.heartedPost.dto.heartedPostDTO;
-import kbsc.kbsc.domain.post.domain.PostResult;
+import kbsc.kbsc.domain.heartedPost.dto.HeartedPostDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +18,11 @@ public class HeartedPostController {
 
     @PostMapping("/{postidx}/{useridx}")
     public boolean clickHeart(@PathVariable Long postidx, @PathVariable Long useridx) {
-        String result = heartedPostService.addHeart(new heartedPostDTO(postidx, useridx));
+        HeartedPostDTO heartedPostDTO = new HeartedPostDTO(postidx, useridx);
+        if(heartedPostService.isHearted(heartedPostDTO))
+        {
+
+        }
         return true;
     }
 

@@ -7,9 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class heartedPostDTO {
-
-
+public class HeartedPostDTO {
     private Long postIdx;
     private Long userIdx;
 }
