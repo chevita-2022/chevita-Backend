@@ -1,13 +1,10 @@
 package kbsc.kbsc.domain.user.dao.impl;
 
 import kbsc.kbsc.domain.post.application.PostResultService;
-import kbsc.kbsc.domain.post.dao.PostJpaRepository;
-import kbsc.kbsc.domain.post.dao.PostRespository;
+import kbsc.kbsc.domain.post.application.PostService;
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.domain.PostResult;
-import kbsc.kbsc.domain.postimage.application.PostImageService;
-import kbsc.kbsc.domain.postimage.dao.impl.PostImageDAOImpl;
-import kbsc.kbsc.domain.reservation.dao.ReservationJpaRepository;
+import kbsc.kbsc.domain.reservation.application.ReservationService;
 import kbsc.kbsc.domain.reservation.domain.Reservation;
 import kbsc.kbsc.domain.s3.S3Service;
 import kbsc.kbsc.domain.user.Repository.UserRepository;
@@ -20,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,20 +29,19 @@ public class UserDAOImpl implements UserDAO {
     final S3Service s3Service;
 
     final PostResultService postResultService;
-    final ReservationJpaRepository reservationJpaRepository;
-    final PostJpaRepository postJpaRepository;
+    final PostService postService;
+    final ReservationService reservationService;
 
     //의존성 주입, 싱글톤 빈으로 미리 올려둠
     @Autowired
     public UserDAOImpl(UserRepository userRepository, S3Service s3Service,
-                       ReservationJpaRepository reservationJpaRepository,
-                       PostJpaRepository postJpaRepository,
-                       PostResultService postResultService) {
+                       PostResultService postResultService,
+                       PostService postService, ReservationService reservationService) {
         this.s3Service = s3Service;
         this.userRepository = userRepository;
-        this.reservationJpaRepository = reservationJpaRepository;
-        this.postJpaRepository = postJpaRepository;
         this.postResultService = postResultService;
+        this.postService = postService;
+        this.reservationService = reservationService;
     }
 
 
@@ -72,7 +67,7 @@ public class UserDAOImpl implements UserDAO {
 
         for (Users curUser: users) {
             log.info("curUser.token={}, curUser.userIdx={}", curUser.getToken(), curUser.getUserIdx());
-            if(curUser.getToken() == socialUserDto.getToken())
+            if(curUser.getToken().equals(socialUserDto.getToken()))
                 return curUser;
         }
         return null;
@@ -93,16 +88,16 @@ public class UserDAOImpl implements UserDAO {
     //나눔기록 조회 예약 테이블 조회 -> 나눔완료된 postIdx 중 작성자 Idx == userId
     public List<PostResult> findNanumHistory(Long userId) {
         List<PostResult> postResults = new ArrayList<>();
-        List<Reservation> reservations = reservationJpaRepository.findAll();
+        List<Reservation> reservations = reservationService.findAllReservation();
+
         for (Reservation reservation: reservations) {
-            if(reservation.getNanumStatus() == "나눔완료" && reservation.getNanumiIdx() == userId)
+            log.info("reservation : {}", reservation.getPostIdx());
+            if(reservation.getNanumStatus().equals("나눔완료") && reservation.getNanumiIdx() == userId)
             {
                 log.info("nanum completed={}", reservation);
-                Optional<Post> post = postJpaRepository.findById(reservation.getPostIdx());
-                post.ifPresent(selectedPost -> {
-                    PostResult postResult = postResultService.findPostResult(selectedPost);
+                Post post = postService.getSinglePost(reservation.getPostIdx());
+                PostResult postResult = postResultService.findPostResult(post);
                     postResults.add(postResult);
-                });
 
             }
 
@@ -113,22 +108,23 @@ public class UserDAOImpl implements UserDAO {
 
     public List<PostResult> findChaenumiHistory(Long userId) {
         List<PostResult> postResults = new ArrayList<>();
-        List<Reservation> reservations = reservationJpaRepository.findAll();
+        List<Reservation> reservations = reservationService.findAllReservation();
+
         for (Reservation reservation: reservations) {
-            if(reservation.getNanumStatus() == "나눔완료" && reservation.getTakerIdx() == userId)
+            log.info("reservation : {}", reservation.getPostIdx());
+            if(reservation.getNanumStatus().equals("나눔완료") && reservation.getTakerIdx() == userId)
             {
                 log.info("nanum completed={}", reservation);
-                Optional<Post> post = postJpaRepository.findById(reservation.getPostIdx());
-                post.ifPresent(selectedPost -> {
-                    PostResult postResult = postResultService.findPostResult(selectedPost);
-                    postResults.add(postResult);
-                });
+                Post post = postService.getSinglePost(reservation.getPostIdx());
+                PostResult postResult = postResultService.findPostResult(post);
+                postResults.add(postResult);
 
             }
 
 
         }
         return postResults;
+
     }
 
     @Override

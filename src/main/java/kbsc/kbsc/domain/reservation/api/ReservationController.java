@@ -11,6 +11,8 @@ import kbsc.kbsc.global.util.CommonResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/posts/reservation")
 @RestController
 public class ReservationController {
@@ -32,6 +34,10 @@ public class ReservationController {
         return ResponseEntity.ok().body(new CommonResponse<>(reservation));
     }
 
+    @GetMapping("/test")
+    public List<Reservation> findAllReservation() {
+        return reservationService.findAllReservation();
+    }
     @ApiOperation(value = "post id로 나눔예약정보 조회", notes = "post id로 나눔예약정보 조회")
     @GetMapping("/{postid}")
     public ResponseEntity<? extends BasicResponse> getReservationByPostId(@PathVariable Long postid ){
