@@ -44,6 +44,7 @@ public class PostController {
         postResult.setImgUrls(postDto.getImgUrls()); //postResult에 이미지 경로 생성
         //가능한 시간대 리스트 생성
         postResult.setSharingTimeZones(postDto.getSharingTimeZones());
+        postResult.setHashtags(postDto.getHashtags());
 
         //이미지 저장
         PostResult result = postResultService.saveImg(postResult);

@@ -16,7 +16,7 @@ import javax.persistence.Id;
 @Builder
 public class Hashtag {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     Long tagIdx; //해시태그 키값
 
     String tagName; //해시태그명
