@@ -35,5 +35,6 @@ public class PostDto {
     private List<List<String>> sharingTimeZones;
 
     private String nanumStatus ="예약 없음"; //나눔상태
+    private List<String> hashtags;
 
 }
