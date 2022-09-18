@@ -33,8 +33,8 @@ public class NanumingService {
             if(reservation.getTakerIdx() == userIdx || reservation.getNanumiIdx() == userIdx)
             {
                 NanumingDto nanuming = new NanumingDto();
-                nanuming.setProfileUrl(nanumingDAO.getUserNickName(userIdx));
-                nanuming.setUserNickname(nanumingDAO.getUserProfileUrl(userIdx));
+                nanuming.setProfileUrl(nanumingDAO.getUserProfileUrl(userIdx));
+                nanuming.setUserNickname(nanumingDAO.getUserNickName(userIdx));
                 nanuming.setNanumiIdx(reservation.getNanumiIdx());
                 nanuming.setTakerIdx(reservation.getTakerIdx());
                 nanuming.setNanumStatus(reservation.getNanumStatus());
