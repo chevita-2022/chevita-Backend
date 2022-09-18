@@ -14,16 +14,17 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Reviews {
+public class Review {
     @Id
     @GeneratedValue()
     Long reviewIdx;
 
+
     Long userIdx;
     Long nanumiIdx;
-
     String nanumiName;
-
+    String chenumiImageUrl;
+    String chenumiName;
     int vital;
     String content;
 }

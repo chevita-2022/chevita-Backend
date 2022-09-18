@@ -11,9 +11,6 @@ public class WriteReviewDto {
 
     Long userIdx;
     Long nanumiIdx;
-
-    String nanumiName;
-
-    int vital = 67;
+    int vital;
     String content;
 }
