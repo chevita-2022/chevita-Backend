@@ -64,10 +64,10 @@ public class PostResultService {
     public PostResult saveHashtag(PostResult postResult) throws IOException{
         Long postIdx = postResult.getPostIdx(); //해시태그 테이블의 postidx 칼럼에 저장할거임
 
-        List<String> hashtagList = postResult.getHashtags(); //해시태그 넣은 배열
-        List<String> results = new ArrayList<>();
+        List<String> hashtagList = postResult.getHashtags(); //해시태그 넣은 배열 = ["#존맛", "#개존맛"]
+        List<String> results = new ArrayList<>(); //결과넣어서 돌려줄 리스트
 
-        for(String tag: hashtagList){
+        for(String tag: hashtagList){ //태그 하나하나 "존맛"
             Hashtag hashtag = Hashtag.builder()
                     .postIdx(postIdx)
                     .tagName(tag)
@@ -107,15 +107,10 @@ public class PostResultService {
         PostResult postResult = new PostResult(post);
         postResult.setImgUrls(postImageDAO.findByPostIdx(post.getPostIdx())); //그냥 리스트
 
-        log.info("findPostResult before setting sharingtimezones= {}", postResult);
-        
         //나눔시간대 설정
-        //postResult.setSharingTimeZones(List<List<String>> sharingTimeZones);
-        //post idx로 해당 post의 나눔시간대만 가져오기
-        //postResult.sharingtimezone설정(postidx로 shaingTimeZone의 목록중에서 postidx가 일히하는 것을 add한다.
         postResult.setSharingTimeZones(sharingTimeZoneDaoImpl.findByPostIdx(post.getPostIdx()));
-
-        log.info("findPostResult after setting sharingtimezones = {}", postResult);
+        //해시태그 설정
+        postResult.setHashtags(hashtagDaoImpl.findByPostIdx(post.getPostIdx())); //해시태그 리스트를 갖다줘야함
 
 
         return postResult;

@@ -24,11 +24,6 @@ public class SharingTimeZoneDaoImpl implements SharingTimeZoneDao {
     @Override //postIdx로
     public List<List<String>> findByPostIdx(Long postIdx) {
         List<List<String>> availableTimezone = new ArrayList<>();
-        /*sharingtimezone :
-        Long sharingTimeZoneIdx;
-        Long postIdx;
-        String dateZone;
-        String timeZone;*/
 
         for(SharingTimeZone sharingTimeZone: sharingTimeZoneRepository.findAll()){
             if(sharingTimeZone.getPostIdx() == postIdx){
