@@ -26,21 +26,12 @@ public class UserController {
     UserDAOImpl userDAO;
 
     @PostMapping("/login")
-    public UserCheckDto login(@RequestBody SocialUserDto socialUserDto) throws IOException {
-        UserCheckDto userCheckDto = new UserCheckDto();
-        Users findUser = userDAO.findByToken(socialUserDto);
+    public Long login(@RequestBody SocialUserDto socialUserDto) throws IOException {
+        Users findUser = userDAO.findByToken(socialUserDto.getToken());
         if(findUser != null) {
-            log.info("findUser.getUserIdx={}", findUser.getUserIdx());
-            userCheckDto.setUserIdx(findUser.getUserIdx());
-            userCheckDto.setExistingUser(true);
-            return userCheckDto;
+            return findUser.getUserIdx();
         }
-        else {
-            Long userIdx = userDAO.joinIn(socialUserDto);
-            userCheckDto.setUserIdx(userIdx);
-            userCheckDto.setExistingUser(false);
-            return userCheckDto;
-        }
+        else return 0L;
     }
 
     @PostMapping

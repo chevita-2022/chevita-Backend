@@ -45,29 +45,30 @@ public class UserDAOImpl implements UserDAO {
     }
 
 
+    //이 메소드가 호출됐다는 건 신규유저라는 뜻임
     public Users fillUserInfo(UserDto userDto) throws IOException {
-        //useDto에는 유저 아이디, 유저 닉네임, 유저 주소, 유저 프로필이미지 있음
-        Users targetUser = findUserByIdx(userDto.getUserIdx());
-        String imgUrl = s3Service.download(userDto.getProfileImgUrl());
-        targetUser.setProfileImgUrl(imgUrl);
-        targetUser.setVital(67L);
-        log.info("imgUrl={}", imgUrl);
-        targetUser.setUserAddress(userDto.getUserAddress());
-        targetUser.setUserNickName(userDto.getUserNickName());
+        //useDto에는 토큰, 유저 닉네임, 유저 주소, 유저 프로필이미지 있음
+       Users targetUser = new Users();
+       targetUser.setToken(userDto.getToken());
 
+       String imgUrl = s3Service.download(userDto.getProfileImgUrl());
+       targetUser.setProfileImgUrl(imgUrl);
+       targetUser.setVital(67L);
+       log.info("imgUrl={}", imgUrl);
+       targetUser.setUserAddress(userDto.getUserAddress());
+       targetUser.setUserNickName(userDto.getUserNickName());
 
-
-        //저장된 값 확인하기
+            //저장된 값 확인하기
         Users saveduser = userRepository.save(targetUser);
         return saveduser;
 
     }
-    public Users findByToken(SocialUserDto socialUserDto) {
+    public Users findByToken(String token) {
         List<Users> users = userRepository.findAll();
 
         for (Users curUser: users) {
             log.info("curUser.token={}, curUser.userIdx={}", curUser.getToken(), curUser.getUserIdx());
-            if(curUser.getToken().equals(socialUserDto.getToken()))
+            if(curUser.getToken().equals(token))
                 return curUser;
         }
         return null;
