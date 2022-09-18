@@ -1,5 +1,7 @@
 package kbsc.kbsc.domain.post.application;
 
+import kbsc.kbsc.domain.hashtag.dao.HashtagDaoImpl;
+import kbsc.kbsc.domain.hashtag.domain.Hashtag;
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.domain.PostResult;
 import kbsc.kbsc.domain.postimage.Repository.PostImageRepository;
@@ -24,20 +26,27 @@ public class PostResultService {
     final SharingTimeZoneDaoImpl sharingTimeZoneDaoImpl;
     final PostImageRepository postImageRepository;
     final SharingTimeZoneRepository sharingTimeZoneRepository;
+    final HashtagDaoImpl hashtagDaoImpl;
+
 
 
     @Autowired
-    public PostResultService(PostImageDAOImpl postImageDAO, SharingTimeZoneDaoImpl sharingTimeZoneDaoImpl, PostImageRepository postImageRepository, SharingTimeZoneRepository sharingTimeZoneRepository) {
+    public PostResultService(PostImageDAOImpl postImageDAO,
+                             SharingTimeZoneDaoImpl sharingTimeZoneDaoImpl,
+                             PostImageRepository postImageRepository,
+                             SharingTimeZoneRepository sharingTimeZoneRepository,
+                             HashtagDaoImpl hashtagDaoImpl) {
         this.postImageDAO = postImageDAO;
         this.sharingTimeZoneDaoImpl = sharingTimeZoneDaoImpl;
         this.postImageRepository = postImageRepository;
         this.sharingTimeZoneRepository = sharingTimeZoneRepository;
+        this.hashtagDaoImpl = hashtagDaoImpl;
     }
 
     public PostResult saveImg(PostResult postResult) throws IOException {
-            Long postIdx = postResult.getPostIdx();
-            log.info("postIdx={}", postIdx);//여기 null 찍힘
-            List<String> urls = postResult.getImgUrls();
+        Long postIdx = postResult.getPostIdx();
+        log.info("postIdx={}", postIdx);//여기 null 찍힘
+        List<String> urls = postResult.getImgUrls();
         List<String> results = new ArrayList<>();
 
         for(String url : urls) {
@@ -49,6 +58,24 @@ public class PostResultService {
             results.add(postImage.getImgUrl());
         }
         postResult.setImgUrls(results);
+        return postResult;
+    }
+
+    public PostResult saveHashtag(PostResult postResult) throws IOException{
+        Long postIdx = postResult.getPostIdx(); //해시태그 테이블의 postidx 칼럼에 저장할거임
+
+        List<String> hashtagList = postResult.getHashtags(); //해시태그 넣은 배열
+        List<String> results = new ArrayList<>();
+
+        for(String tag: hashtagList){
+            Hashtag hashtag = Hashtag.builder()
+                    .postIdx(postIdx)
+                    .tagName(tag)
+                    .build();
+            hashtagDaoImpl.saveHashtag(hashtag);
+            results.add(hashtag.getTagName());
+        }
+        postResult.setHashtags(results);
         return postResult;
     }
 
@@ -75,7 +102,6 @@ public class PostResultService {
 
     }
 
-    //TODO: 나눔시간대까지 저장해서 리턴하기
     public PostResult findPostResult(Post post)
     {
         PostResult postResult = new PostResult(post);
@@ -94,6 +120,7 @@ public class PostResultService {
 
         return postResult;
     }
+
 
 
 }

@@ -2,6 +2,7 @@ package kbsc.kbsc.domain.post.domain;
 
 import kbsc.kbsc.domain.s3.S3Service;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,12 +37,14 @@ public class PostResult {
         this.totalHearts = post.getTotalHearts();
         this.isCertificatedReceipt = post.isCertificatedReceipt();
         this.seenNumber = post.getSeenNumber();
-        this.imgUrls = new ArrayList<>();
         this.globalLocation = post.getGlobalLocation();
-        this.sharingTimeZones = new ArrayList<>();
         this.nanumStatus = post.getNanumStatus();
 
-        //Post 칼럼의 reserveIdx??
+        //result 보낼 때 덧붙이는 것들
+        this.imgUrls = new ArrayList<>();
+        this.sharingTimeZones = new ArrayList<>();
+        this.hashtags = new ArrayList<>();
+
     }
 
 
@@ -66,11 +69,10 @@ public class PostResult {
 
     private int reserveIdx;
     private String nanumStatus;
+
     List<String> imgUrls;
-
     List<List<String>> sharingTimeZones; //나눔일자 = [[나눔일자, 나눔시간대], [나눔일자, 나눔시간대], [나눔일자, 나눔시간대]]
-
-
+    List<String> hashtags; //해시태그들 받을 배열
 
 
 
