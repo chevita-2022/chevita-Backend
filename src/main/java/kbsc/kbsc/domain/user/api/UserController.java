@@ -3,6 +3,8 @@ package kbsc.kbsc.domain.user.api;
 import kbsc.kbsc.domain.login.dto.UserCheckDto;
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.post.domain.PostResult;
+import kbsc.kbsc.domain.reviews.application.ReviewService;
+import kbsc.kbsc.domain.reviews.dto.ReviewDTO;
 import kbsc.kbsc.domain.user.dao.impl.UserDAOImpl;
 import kbsc.kbsc.domain.user.domain.Users;
 import kbsc.kbsc.domain.user.dto.SocialUserDto;
@@ -24,6 +26,8 @@ public class UserController {
 
     @Autowired
     UserDAOImpl userDAO;
+    @Autowired
+    ReviewService reviewService;
 
     @PostMapping("/login")
     public Long login(@RequestBody SocialUserDto socialUserDto) throws IOException {
@@ -41,7 +45,15 @@ public class UserController {
 
     @GetMapping("/{userid}")
     public Users findUserByIdx(@PathVariable Long userid) {
-        return userDAO.findUserByIdx(userid);
+        Users user = userDAO.findUserByIdx(userid);
+        List<ReviewDTO> reviewDTOs = reviewService.getReviewList(userid);
+        double totalSum = 0;
+        Long size = Long.valueOf(reviewDTOs.size());
+        for (ReviewDTO reviewDto: reviewDTOs) {
+            totalSum += reviewDto.getVital();
+        }
+        user.setVital(Long.valueOf((int)totalSum/size));
+        return user;
     }
 
     @PatchMapping("/{userid}")

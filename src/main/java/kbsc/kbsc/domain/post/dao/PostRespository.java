@@ -2,6 +2,7 @@ package kbsc.kbsc.domain.post.dao;
 
 import kbsc.kbsc.domain.post.domain.Post;
 import kbsc.kbsc.domain.postimage.Repository.PostImageRepository;
+import kbsc.kbsc.domain.user.domain.Users;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -38,12 +39,12 @@ public class PostRespository {
         return result;
     }
 
- /*   //userid로 특정 게시물 조회
-    public List<Post> findByUserId(Long userId) {
-        List<Post> postList = (List<Post>) em.find(User.class, userId);
+   //userid로 특정 게시물 조회
+    /*public List<Post> findByUserId(Long userId) {
+        List<Post> postList = (List<Post>) em.find(Users.class, userId);
         return postList;
-    }
-*/
+    }*/
+
     //게시글 전체 조회
     public List<Post> findAll() throws NoResultException {
         String sql = "select p from Post p";
