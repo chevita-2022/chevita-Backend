@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 public class UserDto {
 
-    Long userIdx;
+    String token;
     String userNickName;
     String userAddress;
     String profileImgUrl;
