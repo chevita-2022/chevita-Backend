@@ -49,8 +49,10 @@ public class PostController {
         PostResult result = postResultService.saveImg(postResult);
         //시간대 리스트 저장
         PostResult resultWithTimeZone = postResultService.saveSharingTimeZone(result);
+        //해시태그 저장
+        PostResult resultWithHashtag = postResultService.saveHashtag(resultWithTimeZone);
 
-        return ResponseEntity.ok().body(new CommonResponse(resultWithTimeZone));
+        return ResponseEntity.ok().body(new CommonResponse(resultWithHashtag));
     }
 
     @ApiOperation(value = "postId로 특정 게시글 조회", notes = "postId로 특정 게시글 조회")
