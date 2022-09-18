@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import java.util.List;
 
 @Repository
@@ -50,4 +51,15 @@ public class PostRespository {
         List<Post> result = em.createQuery(sql, Post.class).getResultList();
         return result;
     }
+
+    //TODO: 쿼리문 수정하기
+/*
+    public Post updatePost(Post post, Long target) {
+        Long total = post.getTotalHearts() + target;
+        Long postIdx = post.getPostIdx();
+        Query query = em.createQuery(
+                "UPDATE Post p set p.totalHearts = p.totalHearts+1 where p.postIdx = "
+        );
+        query.executeUpdate();
+    }*/
 }
