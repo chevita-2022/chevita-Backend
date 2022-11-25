@@ -38,3 +38,6 @@ out/
 
 ### yaml ###
 src/main/resources/application.yml
+
+###application.properties###
+build/resources/main/application.properties
